@@ -8,6 +8,19 @@
   <artifactId>travel</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>war</packaging>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.target>1.7</maven.compiler.target>
+        <junit.version>4.12</junit.version>
+        <mysql.version>8.0.21</mysql.version>
+        <javax.servlet-api.version>3.1.0</javax.servlet-api.version>
+        <javax.servlet.jstl.version>1.2</javax.servlet.jstl.version>
+        <org.glassfish.web.jstl-impl.version>1.2</org.glassfish.web.jstl-impl.version>
+        <com.alibaba.fastjson.version>1.2.74</com.alibaba.fastjson.version>
+        <com.alibaba.druid.version>1.2.1</com.alibaba.druid.version>
+        <org.junit.jupiter.junit-jupiter-api.version>5.7.0</org.junit.jupiter.junit-jupiter-api.version>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
@@ -98,6 +111,7 @@
             <groupId>javax.mail</groupId>
             <artifactId>javax.mail-api</artifactId>
             <version>1.5.6</version>
+
         </dependency>
         <dependency>
             <groupId>com.sun.mail</groupId>
@@ -110,6 +124,53 @@
             <artifactId>jedis</artifactId>
             <version>2.7.0</version>
         </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>${javax.servlet-api.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>${javax.servlet.jstl.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.web</groupId>
+            <artifactId>jstl-impl</artifactId>
+            <version>${org.glassfish.web.jstl-impl.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>${com.alibaba.fastjson.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.alibaba/druid -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            <version>${com.alibaba.druid.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${org.junit.jupiter.junit-jupiter-api.version}</version>
+            <scope>test</scope>
+        </dependency>
 
     </dependencies>
 
@@ -118,7 +179,7 @@
         <!--maven插件-->
         <plugins>
             <!--jdk编译插件-->
-            <plugin>
+            <!--<plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
@@ -126,7 +187,7 @@
                     <target>1.8</target>
                     <encoding>utf-8</encoding>
                 </configuration>
-            </plugin>
+            </plugin>-->
             <!--tomcat插件-->
             <plugin>
                 <groupId>org.apache.tomcat.maven</groupId>
