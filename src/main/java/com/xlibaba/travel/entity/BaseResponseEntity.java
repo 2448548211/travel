@@ -1,4 +1,4 @@
-package cn.itcast.travel.entity;
+package com.xlibaba.travel.entity;
 
 /**
  * @author ChenWang

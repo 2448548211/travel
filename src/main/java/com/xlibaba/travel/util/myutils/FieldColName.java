@@ -1,4 +1,4 @@
-package cn.itcast.travel.util.myutils;
+package com.xlibaba.travel.util.myutils;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

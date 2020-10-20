@@ -1,4 +1,4 @@
-package cn.itcast.travel.util;
+package com.xlibaba.travel.util;
 
 import java.util.UUID;
 

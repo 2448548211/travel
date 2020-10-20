@@ -1,4 +1,4 @@
-package cn.itcast.travel.util;
+package com.xlibaba.travel.util;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
