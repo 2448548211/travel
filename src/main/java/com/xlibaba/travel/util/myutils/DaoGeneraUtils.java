@@ -15,7 +15,7 @@ import java.util.List;
  * @create: 2020-10-16 15:00
  **/
 public class DaoGeneraUtils<T> {
-
+    private static final String EMPTY_STRING = "";
     /**
      * 查询所有数据
      * @param clz       数据表对应的实体类反射对象
@@ -30,9 +30,9 @@ public class DaoGeneraUtils<T> {
         String name = null;
         for (Field f : fields) {
             FieldColName ann = f.getAnnotation(FieldColName.class);
-            if (ann == null || ann.value().equals("")){
+            if (ann == null || EMPTY_STRING.equals(ann.value())){
                 name = f.getName();
-            } else {
+            }else {
                 name = ann.value();
             }
             sql_select = sql_select.append(name).append(",");
@@ -40,7 +40,7 @@ public class DaoGeneraUtils<T> {
         sql_select.deleteCharAt(sql_select.lastIndexOf(",")).append(" FROM "+tabName);
         System.out.println(sql_select);
         //查询数据
-        Connection conn = com.xlibaba.travel.utils.DBUtils.getConnection();
+        Connection conn = DBUtils.getConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;
         List<T> list = new ArrayList<>();
@@ -59,16 +59,14 @@ public class DaoGeneraUtils<T> {
                         fields[i].set(t,value);
                     }
                     list.add(t);
-                } catch (InstantiationException e) {
-                    e.printStackTrace();
-                } catch (IllegalAccessException e) {
+                } catch (InstantiationException | IllegalAccessException e) {
                     e.printStackTrace();
                 }
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } finally {
-            com.xlibaba.travel.utils.DBUtils.closeAll(conn,ps,rs);
+            DBUtils.closeAll(conn,ps,rs);
         }
         return list;
     }
@@ -88,7 +86,7 @@ public class DaoGeneraUtils<T> {
         String sql_select = "SELECT ";
         sql_select = sql_select.concat(getSqlSelect(clz)).concat(" FROM "+tabName+" WHERE "+idName+"='"+id+"'");
         System.out.println(sql_select);
-        Connection conn = com.xlibaba.travel.utils.DBUtils.getConnection();
+        Connection conn = DBUtils.getConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;
         //通过反射对象获取所有属性对象
@@ -108,16 +106,14 @@ public class DaoGeneraUtils<T> {
                         //给对象中的属性赋值
                         fields[i].set(t,value);
                     }
-                } catch (InstantiationException e) {
-                    e.printStackTrace();
-                } catch (IllegalAccessException e) {
+                } catch (InstantiationException | IllegalAccessException e) {
                     e.printStackTrace();
                 }
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } finally {
-            com.xlibaba.travel.utils.DBUtils.closeAll(conn,ps,rs);
+            DBUtils.closeAll(conn,ps,rs);
         }
         return t;
     }
