@@ -21,9 +21,9 @@ public class Route implements Serializable {
     private int sid;//所属商家
     private String sourceId;//抓取数据的来源id
 
-    private Category category;//所属分类
+    /*private Category category;//所属分类
     private Seller seller;//所属商家
-    private List<RouteImg> routeImgList;//商品详情图片列表
+    private List<RouteImg> routeImgList;//商品详情图片列表*/
 
 
 
@@ -62,7 +62,7 @@ public class Route implements Serializable {
         this.sourceId = sourceId;
     }
 
-    public List<RouteImg> getRouteImgList() {
+    /*public List<RouteImg> getRouteImgList() {
         return routeImgList;
     }
 
@@ -85,7 +85,7 @@ public class Route implements Serializable {
     public void setSeller(Seller seller) {
         this.seller = seller;
     }
-
+*/
     public String getSourceId() {
         return sourceId;
     }
