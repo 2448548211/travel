@@ -11,15 +11,65 @@ import java.util.List;
  * @since JDK 1.8
  */
 public class MyFavoritePage {
-    private Integer pageId;
+    //当前页
+    private Integer currentPage;
+    //总条数
+    private int totalCount;
+    //总页数
+    private int pageCount;
+    //每页展示的数据行
+    private int pageSize;
+    //请求地址
+    private String url;
     private List<Route> routes;
 
-    public Integer getPageId() {
-        return pageId;
+    public MyFavoritePage(){}
+
+
+    public int getTotalCount() {
+        return totalCount;
     }
 
-    public void setPageId(Integer pageId) {
-        this.pageId = pageId;
+    public void setTotalCount(int totalCount) {
+        this.totalCount = totalCount;
+        if(this.pageSize > 0 && totalCount > 0){
+            this.pageCount = totalCount%pageSize == 0?totalCount/pageSize:totalCount/pageSize+1;
+        }
+    }
+
+    public int getPageCount() {
+        return pageCount;
+    }
+
+    public void setPageCount(int pageCount) {
+        this.pageCount = pageCount;
+    }
+
+    public int getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
+        if(this.pageSize > 0 && totalCount > 0){
+            this.pageCount = totalCount%pageSize == 0?totalCount/pageSize:totalCount/pageSize+1;
+        }
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public Integer getCurrentPage() {
+        return currentPage;
+    }
+
+    public void setCurrentPage(Integer currentPage) {
+        this.currentPage = currentPage;
     }
 
     public List<Route> getRoutes() {

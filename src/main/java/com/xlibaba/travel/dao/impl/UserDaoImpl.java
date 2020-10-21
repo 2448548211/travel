@@ -4,6 +4,7 @@ import com.xlibaba.travel.dao.IUserDao;
 import com.xlibaba.travel.entity.User;
 import com.xlibaba.travel.util.myutils.DBUtil;
 import com.xlibaba.travel.util.myutils.DaoGeneraUtils;
+import com.xlibaba.travel.util.myutils.SingleSqlUtil;
 
 import java.util.List;
 
@@ -47,8 +48,6 @@ public class UserDaoImpl implements IUserDao {
     @Override
     public Integer getIdByName(String username) {
         String sql = "SELECT uid From tab_user WHERE username = ?";
-
-        List<User> users = DBUtil.getDbUtil().excuteQuery(sql, User.class, username);
-        return users.get(0).getUid();
+        return SingleSqlUtil.excuteQuery(Integer.class,sql,username);
     }
 }

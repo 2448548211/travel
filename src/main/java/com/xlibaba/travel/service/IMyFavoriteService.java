@@ -9,7 +9,8 @@ import com.xlibaba.travel.service.page.MyFavoritePage;
  * @since JDK 1.8
  */
 public interface IMyFavoriteService {
-    MyFavoritePage getMyFavoritePage(String username);
+
+    MyFavoritePage getMyFavoritePage(String username, Integer currentPage);
 
     Integer getIdByName(String username);
 }

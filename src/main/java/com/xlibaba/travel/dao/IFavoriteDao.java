@@ -11,5 +11,8 @@ import java.util.List;
  * @since JDK 1.8
  */
 public interface IFavoriteDao {
-    List<Route> getListById(Integer id);
+
+    List<Route> getListById(Integer id, int pageId, int pageSize);
+
+    int getTotalCount(Integer id);
 }

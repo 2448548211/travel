@@ -26,7 +26,8 @@ public class MyFavoriteServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String username = (String)req.getSession().getAttribute("username");
-        MyFavoritePage myFavoritePage = myFavoriteService.getMyFavoritePage(username);
+        Integer currentPage = Integer.parseInt(req.getParameter("currentPage"));
+        MyFavoritePage myFavoritePage = myFavoriteService.getMyFavoritePage(username,currentPage);
         BaseResponseEntity<MyFavoritePage> pakage = null;
         if(myFavoritePage==null){
             pakage = BaseResponseEntity.success(myFavoritePage);
