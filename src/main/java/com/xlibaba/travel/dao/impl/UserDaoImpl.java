@@ -25,7 +25,7 @@ public class UserDaoImpl implements IUserDao {
 
     @Override
     public User getUserByName(String name) {
-        return daoUtils.selectByID("tab_user","uid",name);
+        return daoUtils.selectByID("tab_user","username",name);
     }
 
     @Override
