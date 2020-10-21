@@ -23,39 +23,14 @@
         <div class="prosum_box">
             <dl class="prosum_left">
                 <dt>
-                    <img alt="" class="big_img" src="images/Loading_776px_1.png">
+                    <img alt="" class="big_img" src="">
                 </dt>
                 <dd id="imgDD">
-                    <!--<a class="up_img up_img_disable"></a>
-                    <a title="" id="aID" class="little_img" data-bigpic="http://www.jinmalvyou.com/Public/uploads/goods_img/img_size4/201703/m40920d0669855e745d97f9ad1df966ebb.jpg">
+                   <a class="up_img up_img_disable"></a>
+                    <!-- <a title="" id="aID" class="little_img" data-bigpic="http://www.jinmalvyou.com/Public/uploads/goods_img/img_size4/201703/m40920d0669855e745d97f9ad1df966ebb.jpg">
                         <img id="imgID" src="http://www.jinmalvyou.com/Public/uploads/goods_img/img_size2/201703/m20920d0669855e745d97f9ad1df966ebb.jpg">
-                    </a>
-                    <a title="" id="aID2" class="little_img cur_img" data-bigpic="http://www.jinmalvyou.com/Public/uploads/goods_img/img_size4/201703/m49788843d72171643297ccc033d9288ee.jpg">
-                        <img id="imgID2" src="http://www.jinmalvyou.com/Public/uploads/goods_img/img_size2/201703/m29788843d72171643297ccc033d9288ee.jpg">
-                    </a>
-                    <a title="" id="aID3" class="little_img" data-bigpic="http://www.jinmalvyou.com/Public/uploads/goods_img/img_size4/201703/m4531a8dbceefa2c44e6d0e35627cd2689.jpg">
-                        <img id="imgID3" src="http://www.jinmalvyou.com/Public/uploads/goods_img/img_size2/201703/m2531a8dbceefa2c44e6d0e35627cd2689.jpg">
-                    </a>
-                    <a title="" id="aID4" class="little_img" data-bigpic="http://www.jinmalvyou.com/Public/uploads/goods_img/img_size4/201703/m46d8cb900e9f6c0a762aca19eae40c00c.jpg">
-                        <img id="imgID4" src="http://www.jinmalvyou.com/Public/uploads/goods_img/img_size2/201703/m26d8cb900e9f6c0a762aca19eae40c00c.jpg">
-                    </a>-->
-                    <!--<a title="" class="little_img" data-bigpic="http://www.jinmalvyou.com/Public/uploads/goods_img/img_size4/201703/m45ea00f6eba562a767b5095bbf8cffe07.jpg" style="display:none;">
-                        <img src="http://www.jinmalvyou.com/Public/uploads/goods_img/img_size2/201703/m25ea00f6eba562a767b5095bbf8cffe07.jpg">
-                    </a>
-                    <a title="" class="little_img" data-bigpic="http://www.jinmalvyou.com/Public/uploads/goods_img/img_size4/201703/m4265ec488cd1bc7ce749bc8c9b34b87bc.jpg" style="display:none;">
-                        <img src="http://www.jinmalvyou.com/Public/uploads/goods_img/img_size2/201703/m2265ec488cd1bc7ce749bc8c9b34b87bc.jpg">
-                    </a>
-                    <a title="" class="little_img" data-bigpic="http://www.jinmalvyou.com/Public/uploads/goods_img/img_size4/201703/m4e7e964909d7dd1a9f6e5494d4dc0c847.jpg" style="display:none;">
-                        <img src="http://www.jinmalvyou.com/Public/uploads/goods_img/img_size2/201703/m2e7e964909d7dd1a9f6e5494d4dc0c847.jpg">
-                    </a>
-                    <a title="" class="little_img" data-bigpic="http://www.jinmalvyou.com/Public/uploads/goods_img/img_size4/201703/m467db00e1b76718fab0fe8b96e10f4d35.jpg" style="display:none;">
-                        <img src="http://www.jinmalvyou.com/Public/uploads/goods_img/img_size2/201703/m267db00e1b76718fab0fe8b96e10f4d35.jpg">
-                    </a>
-                    <a title="" class="little_img" data-bigpic="http://www.jinmalvyou.com/Public/uploads/goods_img/img_size4/201703/m487bbbc6e43eba6aa6a36cc1a182f7a20.jpg" style="display:none;">
-                        <img src="http://www.jinmalvyou.com/Public/uploads/goods_img/img_size2/201703/m287bbbc6e43eba6aa6a36cc1a182f7a20.jpg">
                     </a>-->
 
-                    <a class="down_img down_img_disable" style="margin-bottom: 0;"></a>
                 </dd>
             </dl>
             <div class="prosum_right">
@@ -111,14 +86,22 @@
     <script src="js/bootstrap.min.js"></script>
     <!--导入布局js，共享header和footer-->
     <script type="text/javascript" src="js/include.js"></script>
+
+    <!--获取地址栏数据-->
+    <script src="js/getParameter.js"></script>
+
 <script>
+    //获取地址栏数据
+    let id = getParameter("id");
+    alert(id)
+
     //数据接口
-    const IMG_URL = "http://localhost:8080/travel/detail?id=1";
+    const IMG_URL = "http://localhost:8080/travel/detail?id="+id;
     //发送请求获取数据
     $(function () {
         $.get(IMG_URL,function (result) {
             showDOM(result.data.route);
-            showIMG(result.data.routeImgList);
+            showIMG(result.data.routeImgList,result.data.route);
         })
     })
     
@@ -133,15 +116,20 @@
     //<a title="" class="little_img" data-bigpic="#" style="display:none;"></a>
 
     //图片
-    function showIMG(listImg) {
+    function showIMG(listImg,route) {
+        $("#imgDD").append(
+            $('<a class="little_img cur_img"></a>').attr("data-bigpic",route.rimage).append(
+                $('<img>').attr("src",route.rimage)
+            )
+        );
         for (const imgData of listImg) {
             $("#imgDD").append(
-                $('<a class="little_img" style="display:none;"></a>').attr("data-bigpic",imgData),
-                $('<img>').attr("src",imgData)
-            )
+                $('<a class="little_img"></a>').attr("data-bigpic",imgData).append(
+                    $('<img>').attr("src",imgData)
+                )
+            );
         }
-        /*$("#aID").attr("data-bigpic",data.rimage)
-        $("#imgID").attr('src', data.rimage);*/
+        $("#imgDD").append('<a class="down_img down_img_disable" style="margin-bottom: 0;"></a>');
     }
 
     $(document).ready(function() {
