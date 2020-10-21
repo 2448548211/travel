@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
@@ -30,13 +31,14 @@ public class HeaderServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String username = req.getParameter("username");
+        HttpSession session = req.getSession();
+        String username = (String) session.getAttribute("username");
         HeaderPage headerPage = headerService.getHeaderPage(username);
         BaseResponseEntity<HeaderPage> pakage = null;
         if(headerPage!=null){
-            pakage = new BaseResponseEntity<HeaderPage>().success(headerPage);
+            pakage = BaseResponseEntity.success(headerPage);
         }else{
-            pakage = new BaseResponseEntity<HeaderPage>().error();
+            pakage = BaseResponseEntity.error();
         }
         ResponseUtil.sendJSON(resp,pakage);
     }

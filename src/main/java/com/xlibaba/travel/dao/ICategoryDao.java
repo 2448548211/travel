@@ -8,6 +8,6 @@ import java.util.List;
  * @date 2020/10/20 23:13
  * @since JDK 1.8
  */
-public interface ICategoryDAO {
+public interface ICategoryDao {
     List<String> selectAll();
 }

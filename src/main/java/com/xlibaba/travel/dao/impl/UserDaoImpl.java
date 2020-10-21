@@ -15,7 +15,7 @@ import java.util.List;
 public class UserDaoImpl implements IUserDao {
 
     //创建反射工具类对象
-    DaoGeneraUtils<User>  daoUtils = new DaoGeneraUtils(User.class);
+    DaoGeneraUtils<User> daoUtils = new DaoGeneraUtils(User.class);
 
     @Override
     public List<User> listUserAll() {

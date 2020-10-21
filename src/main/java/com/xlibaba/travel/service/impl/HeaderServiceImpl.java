@@ -1,11 +1,9 @@
 package com.xlibaba.travel.service.impl;
 
-import com.xlibaba.travel.dao.ICategoryDAO;
-import com.xlibaba.travel.dao.impl.CategoryDAOImpl;
+import com.xlibaba.travel.dao.ICategoryDao;
+import com.xlibaba.travel.dao.impl.CategoryDaoImpl;
 import com.xlibaba.travel.service.IHeaderService;
 import com.xlibaba.travel.service.page.HeaderPage;
-
-import java.awt.*;
 
 /**
  * @author ChenWang
@@ -14,7 +12,7 @@ import java.awt.*;
  * @since JDK 1.8
  */
 public class HeaderServiceImpl implements IHeaderService {
-    private ICategoryDAO categoryDAO = new CategoryDAOImpl();
+    private ICategoryDao categoryDAO = new CategoryDaoImpl();
     @Override
     public HeaderPage getHeaderPage(String username) {
         HeaderPage headerPage = new HeaderPage();
