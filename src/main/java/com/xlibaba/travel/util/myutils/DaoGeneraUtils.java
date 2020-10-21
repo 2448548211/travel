@@ -50,7 +50,7 @@ public class DaoGeneraUtils<T> {
             }
             sql_select = sql_select.append(name).append(",");
         }
-        sql_select.deleteCharAt(sql_select.lastIndexOf(",")).append(" FROM "+tabName+" WHERE is_del=0");
+        sql_select.deleteCharAt(sql_select.lastIndexOf(",")).append(" FROM "+tabName+" WHERE is_del=1");
         System.out.println(sql_select);
 
         //查询数据
@@ -139,7 +139,7 @@ public class DaoGeneraUtils<T> {
      */
     public T selectByID(String tabName,String idName,Object name) {
         String sql_select = "SELECT ";
-        sql_select = sql_select.concat(getAllColumnNameString(clz)).concat(" FROM "+tabName+" WHERE is_del=0 AND "+idName+"=?");
+        sql_select = sql_select.concat(getAllColumnNameString(clz)).concat(" FROM "+tabName+" WHERE is_del=1 AND "+idName+"=?");
         System.out.println(sql_select);
         Connection conn = DBUtils.getConnection();
         PreparedStatement ps = null;
@@ -234,7 +234,7 @@ public class DaoGeneraUtils<T> {
      * @return
      */
     public int deleteDB(String tabName,String idName,Object name) {
-        String sql = "UPDATE "+tabName+" SET is_del=1 WHERE "+idName+"=?";
+        String sql = "UPDATE "+tabName+" SET is_del=0 WHERE "+idName+"=?";
         Connection conn = DBUtils.getConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;

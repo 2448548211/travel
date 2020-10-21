@@ -1,6 +1,6 @@
 package com.xlibaba.travel.dao.impl;
 
-import com.xlibaba.travel.dao.ICategoryDAO;
+import com.xlibaba.travel.dao.ICategoryDao;
 import com.xlibaba.travel.entity.Category;
 import com.xlibaba.travel.util.myutils.DBUtil;
 
@@ -13,7 +13,7 @@ import java.util.List;
  * @date 2020/10/20 23:14
  * @since JDK 1.8
  */
-public class CategoryDAOImpl implements ICategoryDAO {
+public class CategoryDaoImpl implements ICategoryDao {
     @Override
     public List<String> selectAll() {
         List<String> list = new ArrayList<>();

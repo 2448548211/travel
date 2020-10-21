@@ -28,9 +28,9 @@ public class IndexServlet extends HttpServlet {
         indexPage = indexService.getIndexPage();
         BaseResponseEntity<IndexPage> myPackage = null;
         if(indexPage!=null){
-            myPackage = new BaseResponseEntity<IndexPage>().success(indexPage);
+            myPackage = BaseResponseEntity.success(indexPage);
         }else{
-            myPackage = new BaseResponseEntity<IndexPage>().error();
+            myPackage = BaseResponseEntity.error();
         }
         ResponseUtil.sendJSON(resp,myPackage);
     }

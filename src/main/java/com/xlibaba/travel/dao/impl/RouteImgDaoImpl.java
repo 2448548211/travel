@@ -18,7 +18,7 @@ public class RouteImgDaoImpl implements IRouteImgDao {
 
     @Override
     public List<RouteImg> selectRouteImgById(int id) {
-        String sql = "SELECT * FROM tab_Route_Img WHERE is_del=0 AND rid="+id;
+        String sql = "SELECT * FROM tab_Route_Img WHERE is_del=1 AND rid="+id;
         return daoUtil.selectSql(sql);
     }
 }

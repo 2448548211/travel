@@ -8,6 +8,18 @@ import java.util.List;
 
 public class RouteDaoImpl implements IRouteDao {
 
+    private static final String BASE_SQL = "SELECT rid," +
+            "rname," +
+            "price," +
+            "routeIntroduce," +
+            "rflag," +
+            "rdate," +
+            "isThemeTour," +
+            "count," +
+            "cid," +
+            "rimage," +
+            "sid," +
+            "sourceId FROM tab_route";
     @Override
     public List<Route> selectRoutesByName(String routeName, int startIndex, int num) {
         String sql = "select * from tab_route where name like \"%?%\" limit ?,?";
@@ -28,5 +40,35 @@ public class RouteDaoImpl implements IRouteDao {
     public Route selectRouteById(int id) {
         String sql = "select * from tab_route where rid=?";
         return DBUtil.getDbUtil().excuteQuery(sql, Route.class, id).get(0);
+    }
+
+    @Override
+    public List<Route> getAbroad() {
+        return DBUtil.getDbUtil().excuteQuery(BASE_SQL+" WHERE cid = 6 OR cid = 8 ORDER BY price desc LIMIT 0,4",Route.class);
+    }
+
+    @Override
+    public List<Route> getDomestic() {
+        return DBUtil.getDbUtil().excuteQuery(BASE_SQL+" WHERE cid = 5 ORDER BY price desc LIMIT 0,6",Route.class);
+    }
+
+    @Override
+    public List<Route> getExpensive() {
+        return DBUtil.getDbUtil().excuteQuery(BASE_SQL+" ORDER BY price desc LIMIT 0,4",Route.class);
+    }
+
+    @Override
+    public List<Route> getHot() {
+        return DBUtil.getDbUtil().excuteQuery(BASE_SQL+" ORDER BY count desc LIMIT 0,4",Route.class);
+    }
+
+    @Override
+    public List<Route> getNew() {
+        return DBUtil.getDbUtil().excuteQuery(BASE_SQL+" ORDER BY  rdate desc LIMIT 0,4",Route.class);
+    }
+
+    @Override
+    public List<Route> getTheme() {
+        return DBUtil.getDbUtil().excuteQuery(BASE_SQL+" WHERE rflag = 1 ORDER BY price desc LIMIT 0,4",Route.class);
     }
 }

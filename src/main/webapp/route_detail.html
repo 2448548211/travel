@@ -37,9 +37,9 @@
                <p class="pros_title">【全国特卖】---</p>
                 <p class="hot">1-2月出发，网付立享￥1099/2人起！爆款位置有限，抢完即止！</p>
                 <div class="pros_other">
-                    <p>经营商家  ：黑马国旅</p>
-                    <p>咨询电话 : 400-618-9090</p>
-                    <p>地址 ： 传智播客黑马程序员</p>
+                    <p>经营商家  ：断点旅行</p>
+                    <p id="phone">咨询电话 : 000-000-0000</p>
+                    <p>地址 ： 太阳系</p>
                 </div>
                 <div class="pros_price">
                     <p class="price"><strong id="price">¥2699.00</strong><span>起</span></p>
@@ -89,14 +89,12 @@
 
     <!--获取地址栏数据-->
     <script src="js/getParameter.js"></script>
-
+    <script src="js/bs.js"></script>
 <script>
     //获取地址栏数据
     let id = getParameter("id");
-    alert(id)
-
     //数据接口
-    const IMG_URL = "http://localhost:8080/travel/detail?id="+id;
+    const IMG_URL = BASE_URL+"/detail?id="+id;
     //发送请求获取数据
     $(function () {
         $.get(IMG_URL,function (result) {
@@ -112,6 +110,7 @@
         $(".pros_title").text(data.rname);
         $(".hot").text(data.routeIntroduce);
         $("#place").attr("href","#");
+        $("#phone").text("咨询电话 : 400-666-"+data.sourceId);
     }
     //<a title="" class="little_img" data-bigpic="#" style="display:none;"></a>
 

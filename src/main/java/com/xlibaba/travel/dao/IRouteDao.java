@@ -13,4 +13,16 @@ public interface IRouteDao {
 
     //以id查询路线
     public Route selectRouteById(int id);
+
+    List<Route> getAbroad();
+
+    List<Route> getDomestic();
+
+    List<Route> getExpensive();
+
+    List<Route> getHot();
+
+    List<Route> getNew();
+
+    List<Route> getTheme();
 }

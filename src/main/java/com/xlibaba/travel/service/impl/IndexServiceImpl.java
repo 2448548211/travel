@@ -1,7 +1,7 @@
 package com.xlibaba.travel.service.impl;
 
-import com.xlibaba.travel.dao.IRouteDAO;
-import com.xlibaba.travel.dao.impl.RouteDAOImpl;
+import com.xlibaba.travel.dao.IRouteDao;
+import com.xlibaba.travel.dao.impl.RouteDaoImpl;
 import com.xlibaba.travel.service.IIndexService;
 import com.xlibaba.travel.service.page.IndexPage;
 import com.xlibaba.travel.service.page.IndexTopPage;
@@ -13,22 +13,22 @@ import com.xlibaba.travel.service.page.IndexTopPage;
  * @since JDK 1.8
  */
 public class IndexServiceImpl implements IIndexService {
-    private IRouteDAO routeDAO = new RouteDAOImpl();
+    private IRouteDao routeDao = new RouteDaoImpl();
     @Override
     public IndexPage getIndexPage() {
         IndexPage indexPage = new IndexPage();
         indexPage.setTop(getIndexTopPage());
-        indexPage.setMid(routeDAO.getDomestic());
-        indexPage.setFoot(routeDAO.getAbroad());
+        indexPage.setMid(routeDao.getDomestic());
+        indexPage.setFoot(routeDao.getAbroad());
         return indexPage;
     }
     @Override
     public IndexTopPage getIndexTopPage(){
         IndexTopPage page = new IndexTopPage();
-        page.setTopExpensive(routeDAO.getExpensive());
-        page.setTopHot(routeDAO.getHot());
-        page.setTopNew(routeDAO.getNew());
-        page.setTopTheme(routeDAO.getTheme());
+        page.setTopExpensive(routeDao.getExpensive());
+        page.setTopHot(routeDao.getHot());
+        page.setTopNew(routeDao.getNew());
+        page.setTopTheme(routeDao.getTheme());
         return page;
     }
 }
