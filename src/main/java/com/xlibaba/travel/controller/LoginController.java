@@ -6,11 +6,11 @@ import com.xlibaba.travel.service.ILoginService;
 import com.xlibaba.travel.service.impl.LoginServiceImpl;
 import com.xlibaba.travel.util.myutils.ResponseUtil;
 
+import javax.mail.Session;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 import java.io.IOException;
+import java.net.URLEncoder;
 
 /**
  * @program: ayys-project
@@ -52,6 +52,19 @@ public class LoginController extends HttpServlet {
             //密码验证
             if (password.equals(user.getPassword())) {
                 //验证成功
+                String cookieValue = username+"&"+password;
+                //判断是否勾选保存
+                String remember = req.getParameter("remember");
+                if (remember.equals("yes")) {
+                    cookieValue = cookieValue.concat("&"+remember);
+                }
+                //设置 cookie
+                Cookie cookie = new Cookie("username", URLEncoder.encode(cookieValue, "utf-8"));
+                cookie.setMaxAge(60*60*24);//设置时间(单位为秒)
+                resp.addCookie(cookie);//添加cookie
+
+                //记录登录凭证 -- 在 session 中存储用户名
+                req.getSession().setAttribute("username",username);
                 entity = entity.success(true);
             } else {
                 entity = entity.error(403,"密码错误");

@@ -19,6 +19,7 @@
 	<!--导入jquery-->
 	<!--<script src="js/jquery-3.3.1.js"></script>-->
 	<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 
 	<!--此页面业务相关的脚本-->
 	<script>
@@ -35,15 +36,22 @@
 		$(function () {
 			//登录点击事件
 			$("#loginBtn").click(function () {
-				if ($("#username").val() != "" || $("#password").val() != "") {
-					let username = $("#username").val();
-					let password = $("#password").val();
-					let code = $("#code").val();
+				let username = $("#username").val();
+				let password = $("#password").val();
+				if (username != "" || password != "") {
+					//选中的状态
+					let remember = null;
+					if ($("#remember").prop("checked")) {
+						remember = "yes";
+					}
+					//设置发送给后台的数据
 					let params = {
 						username: username,
 						password: password,
-						code: code
+						remember: remember,
+						code: $("#code").val()
 					};
+					//发送请求
 					$.post(LOGIN_URL, params,function (result) {
 						if (result.code === 200) {
 							location.href = "index.html?"+username;
@@ -56,6 +64,18 @@
 					alert("用户名和密码不可为空 ")
 				}
 			})
+		})
+
+		//cookie解析
+		$(function () {
+			let cookie = $.cookie('username');
+			let strs = new Array(); //定义一数组
+			strs = cookie.split("&"); //字符分割
+			if (strs.length === 3) {
+				$("#username").val(strs[0]);
+				$("#password").val(strs[1]);
+				$("#remember").prop("checked",true);
+			}
 		})
 	</script>
 </head>
@@ -98,13 +118,13 @@
 					<div class="submit_btn">
         				<button id="loginBtn" type="button">登录</button>
         				<div class="auto_login">
-        					<input type="checkbox" name="" class="checkbox">
-        					<span>自动登录</span>
+        					<input id="remember" checked="" type="checkbox"   class="checkbox">
+        					<span>记住我</span>
         				</div>        				
         			</div>
         		</form>
 
-        		<div class="reg">没有账户？<a href="javascript:;">立即注册</a></div>
+        		<div class="reg">没有账户？<a href="register.html">立即注册</a></div>
         	</div>
         </div>
     </section>
