@@ -75,6 +75,7 @@ public class CheckCodeServlet extends HttpServlet {
 		}
 		return sb.toString();
 	}
+	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		this.doGet(request,response);
 	}
