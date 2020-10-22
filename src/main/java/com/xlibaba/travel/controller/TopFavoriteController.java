@@ -6,7 +6,6 @@ import com.xlibaba.travel.service.TopFavoriteService;
 import com.xlibaba.travel.service.impl.TopFavoriteServiceImpl;
 import com.xlibaba.travel.util.myutils.ResponseUtil;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,7 +21,7 @@ public class TopFavoriteController extends HttpServlet {
     private final TopFavoriteService service = new TopFavoriteServiceImpl();
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         //获取当前页
         String currentPage = req.getParameter("page");
 
