@@ -58,35 +58,4 @@ public class FavoriteController extends HttpServlet {
         ResponseUtil.sendJSON(resp,entity);
     }
 
-    //删除
-    private BaseResponseEntity<Integer> toDel(HttpServletRequest req) {
-        BaseResponseEntity<Integer> entity;
-        //获取前端数据
-        String username = req.getParameter("username");
-        String rid = req.getParameter("rid");
-        //业务操作
-        int stateFavorite = service.deleteFavorite(rid, username);
-        try {
-            entity = BaseResponseEntity.success(stateFavorite);
-        } catch (Exception e) {
-            entity = BaseResponseEntity.error(404,"网络错误");
-        }
-        return entity;
-    }
-
-    //添加
-    private BaseResponseEntity<Integer> getAdd(HttpServletRequest req) {
-        BaseResponseEntity<Integer> entity;
-        //获取前端数据
-        String username = req.getParameter("username");
-        String rid = req.getParameter("rid");
-        //业务操作
-        int line = service.saveFavorite(rid, username);
-        try {
-            entity = BaseResponseEntity.success(line);
-        } catch (Exception e) {
-            entity = BaseResponseEntity.error(404,"网络错误");
-        }
-        return entity;
-    }
 }
