@@ -14,6 +14,7 @@ import java.util.List;
 public class Detail {
     private Route route;
     private List<String> routeImgList;
+    private int favoriteState;
 
     public Detail() {
     }
@@ -23,12 +24,27 @@ public class Detail {
         this.routeImgList = routeImgList;
     }
 
+    public Detail(Route route, List<String> routeImgList, int favoriteState) {
+        this.route = route;
+        this.routeImgList = routeImgList;
+        this.favoriteState = favoriteState;
+    }
+
     @Override
     public String toString() {
         return "Detail{" +
                 "route=" + route +
                 ", routeImgList=" + routeImgList +
+                ", favoriteState=" + favoriteState +
                 '}';
+    }
+
+    public int getFavoriteState() {
+        return favoriteState;
+    }
+
+    public void setFavoriteState(int favoriteState) {
+        this.favoriteState = favoriteState;
     }
 
     public Route getRoute() {
