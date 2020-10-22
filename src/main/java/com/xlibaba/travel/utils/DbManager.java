@@ -47,7 +47,7 @@ public class DbManager {
     }
 
     /**
-     * 获取数据总条数
+     * 获取数据总条数 -- 用于分页
      * @param sql 语句
      * @return 总行数
      */
