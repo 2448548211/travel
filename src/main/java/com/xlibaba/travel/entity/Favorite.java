@@ -7,13 +7,22 @@ import java.io.Serializable;
  */
 public class Favorite implements Serializable {
     private Route route;//旅游线路对象
-    private String date;//收藏时间
     private User user;//所属用户
+
+    private int rid;    //旅游线路对象id
+    private String date;//收藏时间
+    private int uid;    //所属用户id
 
     /**
      * 无参构造方法
      */
     public Favorite() {
+    }
+
+    public Favorite(int rid, String date, int uid) {
+        this.rid = rid;
+        this.date = date;
+        this.uid = uid;
     }
 
     /**
@@ -26,6 +35,33 @@ public class Favorite implements Serializable {
             this.route = route;
             this.date = date;
             this.user = user;
+    }
+
+    @Override
+    public String toString() {
+        return "Favorite{" +
+                "route=" + route +
+                ", user=" + user +
+                ", rid=" + rid +
+                ", date='" + date + '\'' +
+                ", uid=" + uid +
+                '}';
+    }
+
+    public int getRid() {
+        return rid;
+    }
+
+    public void setRid(int rid) {
+        this.rid = rid;
+    }
+
+    public int getUid() {
+        return uid;
+    }
+
+    public void setUid(int uid) {
+        this.uid = uid;
     }
 
     public Route getRoute() {
