@@ -34,8 +34,7 @@ public class RegisterDaoImpl implements IRegisterDao {
 
     @Override
     public int insertUser(User user) {
-        String sql = "insert into tab_user(username, password, name, birthday, " +
-                "sex, telephone, email) values (?,?,?,?,?,?,?)";
+        String sql = "insert into tab_user(username, password, name,telephone, email) values (?,?,?,?,?)";
         Connection conn = null;
         PreparedStatement ps = null;
         int rSet = 0;
@@ -45,10 +44,8 @@ public class RegisterDaoImpl implements IRegisterDao {
             ps.setString(1, user.getUsername());
             ps.setString(2, user.getPassword());
             ps.setString(3, user.getName());
-            ps.setString(4, user.getBirthday());
-            ps.setString(5, user.getSex());
-            ps.setString(6, user.getTelephone());
-            ps.setString(7, user.getEmail());
+            ps.setString(4, user.getTelephone());
+            ps.setString(5, user.getEmail());
             rSet = ps.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();

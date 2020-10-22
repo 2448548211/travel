@@ -36,8 +36,6 @@ public class RegisterController extends HttpServlet {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
         String name = req.getParameter("name");
-        String birthday = req.getParameter("birthday");
-        String sex = req.getParameter("sex");
         String telephone = req.getParameter("telephone");
         String email = req.getParameter("email");
         String code = req.getParameter("code");
@@ -49,13 +47,10 @@ public class RegisterController extends HttpServlet {
             ResponseUtil.sendJSON(resp,entity);
         }
         // 用户存在为 1，不存在为 0
-        int i = service.checkUserName(username);
-        if (i == 0){
+        if (service.checkUserName(username) == 0){
             user.setUsername(username);
             user.setPassword(password);
             user.setName(name);
-            user.setBirthday(birthday);
-            user.setSex(sex);
             user.setTelephone(telephone);
             user.setEmail(email);
             service.insertUser(user);
