@@ -3,6 +3,8 @@ package com.xlibaba.travel.entity;
 import java.util.List;
 
 /**
+ *  收藏排行榜分页数据
+ *
  * @Author: Ram
  * @Since: 2020.10.21 14:42
  */
