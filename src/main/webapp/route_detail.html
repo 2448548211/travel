@@ -18,7 +18,7 @@
             <a href="index.html">首页</a>
             <span> &gt;</span>
             <a id="place" href="route_list.html">国内游</a><span> &gt;</span>
-            <a  class="pros_title" href="#">【全国特卖】---</a>
+            <a  class="pros_title">【全国特卖】---</a>
         </div>
         <div class="prosum_box">
             <dl class="prosum_left">
@@ -51,7 +51,7 @@
                         <a id="delFavorite" class="btn already" ><!--disabled="disabled"-->
                             <i class="glyphicon glyphicon-heart-empty"></i>取消收藏
                         </a>
-                        <span>已收藏100次</span>
+                        <span>已收藏<span id="favoriteSize">100</span>次</span>
                     </p>
                 </div>        
             </div>
@@ -141,7 +141,7 @@
         $("#price").text("￥"+data.price+".00");
         $(".pros_title").text(data.rname);
         $(".hot").text(data.routeIntroduce);
-        $("#place").attr("href","#");
+        //$("#place").attr("href","#");
         $("#phone").text("咨询电话 : 400-666-"+data.sourceId);
     }
     //<a title="" class="little_img" data-bigpic="#" style="display:none;"></a>
@@ -175,6 +175,7 @@
                 if (result.data === 1) {
                     alert("收藏成功")
                     favoriteOK();
+                    $("#favoriteSize").text($("#favoriteSize").text()+1);
                 } else {
                     alert("收藏失败");
                 }

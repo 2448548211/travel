@@ -38,7 +38,7 @@ public class FavoriteController extends HttpServlet {
         //操作类型
         switch (action) {
             case "add": //添加
-                state = service.deleteFavorite(rid, username);
+                state = service.saveFavorite(rid, username);
                 break;
             case "del": //删除
                 state = service.deleteFavorite(rid, username);
