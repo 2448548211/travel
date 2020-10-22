@@ -17,8 +17,8 @@
       <!--导入angularJS文件-->
     <!--<script src="js/angular.min.js"></script>-->
 	<!--导入jquery-->
-	<!--<script src="js/jquery-3.3.1.js"></script>-->
-	<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="js/jquery-3.3.1.js"></script>
+	<!--<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
 	<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 	<script src="js/bs.js"></script>
 
@@ -27,7 +27,7 @@
 		//登录控制
 		const LOGIN_URL = BASE_URL+"/login";
 		//验证码
-		const CHECK_URL = "/checkCode?";
+		const CHECK_URL = BASE_URL+"/checkCode?";
 
 		<!--图片点击事件-->
 		function changeCheckCode(img) {
@@ -70,9 +70,9 @@
 		//cookie解析
 		$(function () {
 			let cookie = $.cookie('username');
-			if (cookie !== "undefined") {
+			if (cookie != "undefined") {
 				let strs = new Array(); //定义一数组
-				strs = cookie.string.split("&"); //字符分割
+				strs = cookie.toString().split("&"); //字符分割
 				if (strs.length === 3) {
 					$("#username").val(strs[0]);
 					$("#password").val(strs[1]);
@@ -138,7 +138,7 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
     <!--导入布局js，共享header和footer-->
-    <script type="text/javascript" src="js/include.js"></script>
+    <!--<script type="text/javascript" src="js/include.js"></script>-->
 </body>
 
 </html>
