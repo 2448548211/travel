@@ -14,9 +14,15 @@ public interface IRouteDao {
     //以id查询路线
     public Route selectRouteById(int id);
 
-    //获取总记录数
-    public int getSum();
+    List<Route> getAbroad();
 
-    //根据路线名字查询所有
-    public int getSumByName(String routeName);
+    List<Route> getDomestic();
+
+    List<Route> getExpensive();
+
+    List<Route> getHot();
+
+    List<Route> getNew();
+
+    List<Route> getTheme();
 }

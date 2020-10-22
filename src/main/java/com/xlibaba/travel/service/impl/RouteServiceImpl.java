@@ -15,8 +15,9 @@ public class RouteServiceImpl implements IRouteService {
     public Page selectRoutesByName(String routeName, int currentPage) {
         Page page = new Page();
         page.setCurrentPage(currentPage);
-        page.setSum(getSum(routeName));
         List<Route> routes = iRouteDao.selectRoutesByName(routeName, (currentPage - 1) * page.getPageSize(), page.getPageSize());
+        int size = routes.size();
+        page.setSum(size);
         page.setList(routes);
         return page;
     }
@@ -24,13 +25,5 @@ public class RouteServiceImpl implements IRouteService {
     @Override
     public Route selectRouteById(int id) {
         return iRouteDao.selectRouteById(id);
-    }
-
-    @Override
-    public int getSum(String routeName) {
-        if (routeName == null || routeName.equals("")) {
-            return iRouteDao.getSum();
-        }
-        return iRouteDao.getSumByName(routeName);
     }
 }

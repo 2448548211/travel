@@ -28,13 +28,15 @@ public class RegisterDaoImpl implements IRegisterDao {
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        }finally {
+            DBUtil.getDbUtil().closeAll(rSet,ps,conn);
         }
         return count;
     }
 
     @Override
     public int insertUser(User user) {
-        String sql = "insert into tab_user(username, password, name,telephone, email) values (?,?,?,?,?)";
+        String sql = "insert into tab_user(username, password, name, telephone, email) values (?,?,?,?,?)";
         Connection conn = null;
         PreparedStatement ps = null;
         int rSet = 0;
