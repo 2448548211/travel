@@ -31,7 +31,7 @@ public class RegisterController extends HttpServlet {
         //设置编码格式
         req.setCharacterEncoding("utf-8");
         //创建数据包对象
-        BaseResponseEntity<Boolean> entity = null;
+        BaseResponseEntity<String> entity = null;
         //获取前端发送的数据
         String username = req.getParameter("username");
         String password = req.getParameter("password");
@@ -44,22 +44,25 @@ public class RegisterController extends HttpServlet {
         User user = new User();
         //获取存放在session作用域中的验证码
         String serverCode = (String) req.getSession().getAttribute("CHECKCODE_SERVER");
-        if (!serverCode.equals(code)){
+        if (!serverCode.equals(code)) {
             entity = BaseResponseEntity.error(401, "验证码有误！");
-            ResponseUtil.sendJSON(resp,entity);
-        }
-        // 用户存在为 1，不存在为 0
-        if (service.checkUserName(username) == 0){
-            user.setUsername(username);
-            user.setPassword(password);
-            user.setName(name);
+            ResponseUtil.sendJSON(resp, entity);
+        } else {
+
+            // 用户存在为 1，不存在为 0
+            if (service.checkUserName(username) == 0) {
+                user.setUsername(username);
+                user.setPassword(password);
+                user.setName(name);
             /*user.setBirthday(birthday);
             user.setSex(sex);*/
-            user.setTelephone(telephone);
-            user.setEmail(email);
-            service.insertUser(user);
-        }else {
-            entity = BaseResponseEntity.error(400,"用户名已存在");
+                user.setTelephone(telephone);
+                user.setEmail(email);
+                service.insertUser(user);
+                entity = BaseResponseEntity.success(username);
+            } else {
+                entity = BaseResponseEntity.error(402, "用户名已存在");
+            }
             //返回数据给前端
             ResponseUtil.sendJSON(resp, entity);
         }
