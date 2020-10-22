@@ -26,9 +26,17 @@ public class TopFavoriteDaoImpl implements TopFavoriteDao {
     }
 
     @Override
-    public List<Route> selectTopFavoriteByCondition(String title,double minPrice, double maxPrice) {
+    public List<Route> selectTopFavoriteByCondition(String title,double minPrice,double maxPrice,int offset, int pageSize) {
         String sql = "select rid,rname,price,count,rimage,sid FROM tab_route WHERE is_del=0 " +
-                "and rname like '%"+title+"%' and price>="+minPrice+" and price<="+maxPrice+" order by count desc";
+                "and rname like '%"+title+"%' and price>="+minPrice+" and price<="+maxPrice+" " +
+                "order by count desc limit "+offset+","+pageSize+"";
         return DbManager.selectSql(sql);
+    }
+
+    @Override
+    public int selectTotalCount(String title, double minPrice, double maxPrice) {
+        String sql = "select count(*) from tab_route where is_del = 0 and " +
+                "rname like '%"+title+"%' and price>="+minPrice+" and price<="+maxPrice+"";
+        return DbManager.getTotalCount(sql);
     }
 }

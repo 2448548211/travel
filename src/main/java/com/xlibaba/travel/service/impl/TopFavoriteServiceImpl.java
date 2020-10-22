@@ -14,22 +14,22 @@ import java.util.List;
  */
 public class TopFavoriteServiceImpl implements TopFavoriteService {
     private final TopFavoriteDao topFavoriteDao = new TopFavoriteDaoImpl();
+    private final FavoriteData data = new FavoriteData();
 
     @Override
     public FavoriteData getTopList(String currentPage) {
-        FavoriteData topCollectionData = new FavoriteData();
         //1.设置当前页
-        topCollectionData.setCurrentPage(Integer.parseInt(currentPage));
+        data.setCurrentPage(Integer.parseInt(currentPage));
         //2.设置每页展示的数据
-        topCollectionData.setPageSize(8);
+        data.setPageSize(8);
         //3.设置总条数
-        topCollectionData.setTotalCount(topFavoriteDao.selectTotalCount());
-        //4.设置总页数 -- 在 FavoriteData 对象中通过算法完成
+        data.setTotalCount(topFavoriteDao.selectTotalCount());
 
         //5.设置每页展示的数据行
-        topCollectionData.setList(topFavoriteDao.selectFavoriteAll((Integer.parseInt(currentPage)-1)*topCollectionData.getPageSize(), topCollectionData.getPageSize()));
+        data.setList(topFavoriteDao.selectFavoriteAll(
+                (Integer.parseInt(currentPage)-1)*data.getPageSize(), data.getPageSize()));
         //返回数据对象
-        return topCollectionData;
+        return data;
     }
 
     /**
@@ -40,11 +40,21 @@ public class TopFavoriteServiceImpl implements TopFavoriteService {
      * @return 数据对象
      */
     @Override
-    public FavoriteData getTopListByCondition(String title,String minPrice,String maxPrice) {
+    public FavoriteData getTopListByCondition(String title,String minPrice,String maxPrice,String page) {
+        //1.设置当前页
+        data.setCurrentPage(Integer.parseInt(page));
+        //2.设置每页展示的数据
+        data.setPageSize(8);
+        //设置总条数
+        data.setTotalCount(topFavoriteDao.selectTotalCount
+                (title, Integer.parseInt(minPrice), Integer.parseInt(maxPrice)));
+
+        //条件获取数据
         List<Route> list = topFavoriteDao.selectTopFavoriteByCondition
-                (title, Integer.parseInt(minPrice), Integer.parseInt(maxPrice));
-        FavoriteData data = new FavoriteData();
+                (title, Integer.parseInt(minPrice), Integer.parseInt(maxPrice),
+                        (Integer.parseInt(page)-1)*data.getPageSize(), data.getPageSize());
         data.setList(list);
+
         return data;
     }
 

@@ -21,6 +21,6 @@ public interface TopFavoriteService {
      * @param maxPrice 最高价格
      * @return 数据集合
      */
-    FavoriteData getTopListByCondition(String title,String minPrice,String maxPrice);
+    FavoriteData getTopListByCondition(String title,String minPrice,String maxPrice,String page);
 
 }

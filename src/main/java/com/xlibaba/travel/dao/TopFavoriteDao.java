@@ -28,7 +28,18 @@ public interface TopFavoriteDao {
      * @param title 标题
      * @param minPrice 最低价格
      * @param maxPrice 最高价格
+     * @param offset 查询偏移量
+     * @param pageSize 查询量
      * @return 数据集合
      */
-    List<Route> selectTopFavoriteByCondition(String title,double minPrice,double maxPrice);
+    List<Route> selectTopFavoriteByCondition(String title,double minPrice,double maxPrice,int offset, int pageSize);
+
+    /**
+     * 获取条件查询的总条数
+     * @param title 标题
+     * @param minPrice 最低价格
+     * @param maxPrice 最高价格
+     * @return 总条数
+     */
+    int selectTotalCount(String title,double minPrice,double maxPrice);
 }
