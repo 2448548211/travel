@@ -34,7 +34,7 @@ public class MyFavoriteServlet extends HttpServlet {
         Integer currentPage = cp==null||"".equals(cp)?ONE:Integer.parseInt(req.getParameter(CURRENT_PAGE));
         MyFavoritePage myFavoritePage = myFavoriteService.getMyFavoritePage(username,currentPage);
         BaseResponseEntity<MyFavoritePage> pakage = null;
-        if(myFavoritePage==null){
+        if(myFavoritePage!=null){
             pakage = BaseResponseEntity.success(myFavoritePage);
         }else{
             pakage = BaseResponseEntity.error();
