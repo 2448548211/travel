@@ -34,7 +34,7 @@ public class TopFavoriteController extends HttpServlet {
         } catch (Exception e){
             responseEntity = BaseResponseEntity.error();
         }
-        //响应
+        //响应 -- 将数据对象转换为json数据，然后响应给前端
         ResponseUtil.sendJson(resp,responseEntity);
     }
 }
