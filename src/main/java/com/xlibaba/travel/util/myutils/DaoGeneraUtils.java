@@ -177,9 +177,22 @@ public class DaoGeneraUtils<T> {
     }
 
 
-    public int insertSQL(String sql) {
-
-        return 0;
+    public int insertSQL(String sql, Object ... datas) {
+        Connection conn = DBUtils.getConnection();
+        PreparedStatement ps = null;
+        int line = 0;
+        try {
+            ps = conn.prepareStatement(sql);
+            for (int i = 0; i < datas.length; i++) {
+                ps.setObject(i+1,datas[i]);
+            }
+            line = ps.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            DBUtils.closeAll(conn,ps);
+        }
+        return line;
     }
 
 

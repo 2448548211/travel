@@ -25,20 +25,40 @@ public class FavoriteController extends HttpServlet {
     IFavoriteService service = new FavoriteServiceImpl();
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         //创建数据包对象
-        BaseResponseEntity<Detail> entity = null;
-        //获取前端数据
+        BaseResponseEntity<Integer> entity = null;
+        //操作类型
+        String action = req.getParameter("action");
+        System.out.println(action);
+        switch (action) {
+            case "add": //添加
+                entity = getAdd(req);
+                break;
+            case "del": //删除
+                break;
+            case "listDel": //批量删除
+                break;
+            default:
+                break;
+        }
+
+        ResponseUtil.sendJSON(resp,entity);
+    }
+
+    //添加
+    private BaseResponseEntity<Integer> getAdd(HttpServletRequest req) {
+        BaseResponseEntity<Integer> entity;//获取前端数据
         String username = req.getParameter("username");
         String rid = req.getParameter("rid");
 
-        service. saveFavorite(rid,username);
+        int line = service.saveFavorite(rid, username);
 
         try {
-            entity = BaseResponseEntity.success(null);
+            entity = BaseResponseEntity.success(line);
         } catch (Exception e) {
             entity = BaseResponseEntity.error(404,"网络错误");
         }
-        ResponseUtil.sendJSON(resp,entity);
+        return entity;
     }
 }

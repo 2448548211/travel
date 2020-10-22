@@ -141,15 +141,16 @@
         $("#favorite").click(function () {
             //cookie解析
             let cookie = $.cookie('username');
-            if (cookie != "undefined") {
+            if (cookie !== "undefined") {
                 let strs = new Array(); //定义一数组
-                strs = cookie.string.split("&"); //字符分割
+                //strs = cookie.string.split("&"); //字符分割
                 let params = {
-                    rid:5,
+                    action:"add",
+                    rid:6,
                     username:"asd"
                 }
                 $.get(FAVORITE_URL,params,function (result) {
-                    if (result.code === 200) {
+                    if (result.data === 1) {
                         alert("收藏成功")
                     } else {
                         alert("收藏失败");
