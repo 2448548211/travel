@@ -44,7 +44,7 @@
                 <div class="pros_price">
                     <p class="price"><strong id="price">¥2699.00</strong><span>起</span></p>
                     <p class="collect">
-                        <a class="btn"><i class="glyphicon glyphicon-heart-empty"></i>点击收藏</a>
+                        <a id="favorite" class="btn"><i class="glyphicon glyphicon-heart-empty"></i>点击收藏</a>
 
                         <a  class="btn already" disabled="disabled"><i class="glyphicon glyphicon-heart-empty"></i>点击收藏</a>
                         <span>已收藏100次</span>
@@ -90,11 +90,16 @@
     <!--获取地址栏数据-->
     <script src="js/getParameter.js"></script>
     <script src="js/bs.js"></script>
+
+    <script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 <script>
     //获取地址栏数据
     let id = getParameter("id");
-    //数据接口
+    //详细信息数据接口
     const IMG_URL = BASE_URL+"/detail?id="+id;
+    //收藏接口
+    const FAVORITE_URL = BASE_URL+"/favorite";
+
     //发送请求获取数据
     $(function () {
         $.get(IMG_URL,function (result) {
@@ -130,6 +135,30 @@
         }
         $("#imgDD").append('<a class="down_img down_img_disable" style="margin-bottom: 0;"></a>');
     }
+
+    //收藏
+    $(function () {
+        $("#favorite").click(function () {
+            //cookie解析
+            let cookie = $.cookie('username');
+            if (cookie != "undefined") {
+                let strs = new Array(); //定义一数组
+                strs = cookie.string.split("&"); //字符分割
+                let params = {
+                    rid:5,
+                    username:"asd"
+                }
+                $.get(FAVORITE_URL,params,function (result) {
+                    if (result.code === 200) {
+                        alert("收藏成功")
+                    } else {
+                        alert("收藏失败");
+                    }
+                })
+            }
+
+        })
+    })
 
     $(document).ready(function() {
         //焦点图效果

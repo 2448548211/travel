@@ -1,5 +1,6 @@
 package com.xlibaba.travel.dao;
 
+import com.xlibaba.travel.entity.Favorite;
 import com.xlibaba.travel.entity.Route;
 
 import java.util.List;
@@ -15,4 +16,11 @@ public interface IFavoriteDao {
     List<Route> getListById(Integer id, int pageId, int pageSize);
 
     int getTotalCount(Integer id);
+
+    //添加收藏
+    int insertFavorite(Favorite favorite);
+
+    //删除收藏
+    int deleteFavorite(int rid);
+
 }
