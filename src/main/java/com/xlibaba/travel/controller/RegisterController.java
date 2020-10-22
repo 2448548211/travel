@@ -49,8 +49,7 @@ public class RegisterController extends HttpServlet {
             ResponseUtil.sendJSON(resp,entity);
         }
         // 用户存在为 1，不存在为 0
-        int i = service.checkUserName(username);
-        if (i == 0){
+        if (service.checkUserName(username) == 0){
             user.setUsername(username);
             user.setPassword(password);
             user.setName(name);
@@ -59,8 +58,6 @@ public class RegisterController extends HttpServlet {
             user.setTelephone(telephone);
             user.setEmail(email);
             service.insertUser(user);
-            entity = BaseResponseEntity.success(200,"注册成功",true);
-            ResponseUtil.sendJSON(resp, entity);
         }else {
             entity = BaseResponseEntity.error(400,"用户名已存在");
             //返回数据给前端

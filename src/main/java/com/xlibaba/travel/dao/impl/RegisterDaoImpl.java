@@ -2,7 +2,7 @@ package com.xlibaba.travel.dao.impl;
 
 import com.xlibaba.travel.dao.IRegisterDao;
 import com.xlibaba.travel.entity.User;
-import com.xlibaba.travel.util.myutils.DBUtil;
+import com.xlibaba.travel.util.JDBCUtils;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,11 +15,12 @@ public class RegisterDaoImpl implements IRegisterDao {
     @Override
     public int checkUserName(String username) {
         String sql = "select count(*) from tab_user where username=?";
-        Connection conn = DBUtil.getDbUtil().getConnection();
+        Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rSet = null;
         int count = 0;
         try {
+            conn = JDBCUtils.getConnection();
             ps = conn.prepareStatement(sql);
             ps.setString(1, username);
             rSet = ps.executeQuery();
@@ -29,30 +30,31 @@ public class RegisterDaoImpl implements IRegisterDao {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }finally {
-            DBUtil.getDbUtil().closeAll(rSet,ps,conn);
+            JDBCUtils.close(conn,ps,rSet);
         }
         return count;
     }
 
     @Override
     public int insertUser(User user) {
-        String sql = "insert into tab_user(username, password, name, telephone, email) values (?,?,?,?,?)";
+        String sql = "insert into tab_user(username, password, name, sex, telephone, email) values (?,?,?,?,?,?)";
         Connection conn = null;
         PreparedStatement ps = null;
         int rSet = 0;
         try {
-            conn = DBUtil.getDbUtil().getConnection();
+            conn = JDBCUtils.getConnection();
             ps = conn.prepareStatement(sql);
             ps.setString(1, user.getUsername());
             ps.setString(2, user.getPassword());
             ps.setString(3, user.getName());
-            ps.setString(4, user.getTelephone());
-            ps.setString(5, user.getEmail());
+            ps.setString(4, user.getSex());
+            ps.setString(5, user.getTelephone());
+            ps.setString(6, user.getEmail());
             rSet = ps.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }finally {
-            DBUtil.getDbUtil().closeAll(ps,conn);
+            JDBCUtils.close(conn,ps);
         }
         return rSet;
     }
