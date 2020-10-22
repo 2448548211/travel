@@ -13,7 +13,7 @@ public interface TopFavoriteDao {
      * 获取收藏排行榜的所有数据
      * @param offset 偏移量
      * @param pageSize 每页展示的数据
-     * @return 数据结合
+     * @return 数据集合
      */
     List<Route> selectFavoriteAll(int offset, int pageSize);
 
