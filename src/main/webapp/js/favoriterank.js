@@ -4,13 +4,19 @@ const BASE_CONDITION_URL = "http://localhost:8080/api/topCondition";
 
 $(function () {
     let index = 1;
-    
+
+    $("#next li").each(function () {
+        $("#next li")[index].click(function () {
+
+        })
+    })
+
     let params = {
         page: index
     }
     $.get(BASE_URL,params,function (result) {
         if (result.code === 200){
-            //数据展示
+            //数据展示 -- 前端未分页
             showTopFavorite(result.data.list);
         }
     })
@@ -24,10 +30,11 @@ $(function () {
     //         <span class="shouchang">已收藏450次</span>
     //     </p>
     // </li>
+    //数据展示函数
     function showTopFavorite(topCollectAll) {
         let index = 1;
         for (const topSingle of topCollectAll) {
-            $("#topCollect").append(
+            $("#topFavorite").append(
                 $("<li>").append(
                     $("<span>").addClass("num one").text(index++)
                 ).append(
@@ -52,16 +59,20 @@ $(function () {
     }
 
 
-    
-    $("#content").submit(function () {
+    //数据拿到 -- 前端未分页
+    $("#btn").click(function () {
         //获取输入框的内容
         let params = {
             title: $("#title").val(),
             minPrice: $("#min").val(),
-            maxPrice: $("#max").val()
+            maxPrice: $("#max").val(),
+            //通过 page ++ / -- 获取数据的偏移量
+            page: 1
         }
         $.get(BASE_CONDITION_URL,params,function (result) {
+            console.log(result.code)
             if (result.code === 200){
+                location.href = "";
                 showTopFavorite(result.data.list);
             }
         })
