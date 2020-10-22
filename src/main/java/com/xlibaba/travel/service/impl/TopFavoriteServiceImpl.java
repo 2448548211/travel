@@ -28,7 +28,7 @@ public class TopFavoriteServiceImpl implements TopFavoriteService {
 
         //5.设置每页展示的数据行
         topCollectionData.setList(topFavoriteDao.selectFavoriteAll((Integer.parseInt(currentPage)-1)*topCollectionData.getPageSize(), topCollectionData.getPageSize()));
-
+        //返回数据对象
         return topCollectionData;
     }
 
