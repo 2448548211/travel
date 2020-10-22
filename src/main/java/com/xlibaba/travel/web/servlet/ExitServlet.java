@@ -30,6 +30,6 @@ public class ExitServlet extends HttpServlet {
         session.invalidate();
         //第三种
         //session.removeAttribute("username");
-        resp.sendRedirect(req.getContextPath()+"index.html");
+        resp.sendRedirect(req.getContextPath()+"/index.html");
     }
 }
