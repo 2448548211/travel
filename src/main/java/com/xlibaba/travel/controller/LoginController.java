@@ -60,7 +60,7 @@ public class LoginController extends HttpServlet {
                 }
                 //设置 cookie
                 Cookie cookie = new Cookie("username", URLEncoder.encode(cookieValue, "utf-8"));
-                cookie.setMaxAge(60*60*24);//设置时间(单位为秒)
+                cookie.setMaxAge(60*60*24*7);//设置时间(单位为秒)
                 resp.addCookie(cookie);//添加cookie
 
                 //记录登录凭证 -- 在 session 中存储用户名

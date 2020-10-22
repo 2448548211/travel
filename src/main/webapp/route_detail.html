@@ -44,9 +44,13 @@
                 <div class="pros_price">
                     <p class="price"><strong id="price">¥2699.00</strong><span>起</span></p>
                     <p class="collect">
-                        <a id="favorite" class="btn"><i class="glyphicon glyphicon-heart-empty"></i>点击收藏</a>
+                        <a id="favorite" class="btn">
+                            <i class="glyphicon glyphicon-heart-empty"></i>点击收藏
+                        </a>
 
-                        <a  class="btn already" disabled="disabled"><i class="glyphicon glyphicon-heart-empty"></i>点击收藏</a>
+                        <a id="delFavorite" class="btn already" ><!--disabled="disabled"-->
+                            <i class="glyphicon glyphicon-heart-empty"></i>取消收藏
+                        </a>
                         <span>已收藏100次</span>
                     </p>
                 </div>        
@@ -97,12 +101,35 @@
     let id = getParameter("id");
     //详细信息数据接口
     const IMG_URL = BASE_URL+"/detail?id="+id;
-    //收藏接口
+    //添加收藏接口
     const FAVORITE_URL = BASE_URL+"/favorite";
+    //收藏状态值
+    let stateFav;
+
+
+    //Cookie解析
+    let cookie = $.cookie('username');
+    let arr = new Array(); //定义一数组
+    if (cookie != "undefined") {
+        arr = cookie.toString().split("&"); //字符分割
+    }
 
     //发送请求获取数据
     $(function () {
-        $.get(IMG_URL,function (result) {
+        let params = {
+            rid:id,
+            username:arr[0]
+        }
+        $.get(IMG_URL,params,function (result) {
+            //收藏按钮设置
+            if (result.data.favoriteState === 1) {
+                //已收藏时使用
+                favoriteOK();
+            } else {
+                //未收藏时使用
+                favoriteNO();
+            }
+            //数据展示
             showDOM(result.data.route);
             showIMG(result.data.routeImgList,result.data.route);
         })
@@ -136,30 +163,61 @@
         $("#imgDD").append('<a class="down_img down_img_disable" style="margin-bottom: 0;"></a>');
     }
 
-    //收藏
+    //添加收藏
     $(function () {
         $("#favorite").click(function () {
-            //cookie解析
-            let cookie = $.cookie('username');
-            if (cookie !== "undefined") {
-                let strs = new Array(); //定义一数组
-                //strs = cookie.string.split("&"); //字符分割
-                let params = {
-                    action:"add",
-                    rid:6,
-                    username:"asd"
-                }
-                $.get(FAVORITE_URL,params,function (result) {
-                    if (result.data === 1) {
-                        alert("收藏成功")
-                    } else {
-                        alert("收藏失败");
-                    }
-                })
+            let params = {
+                action:"add",
+                rid:id,
+                username:arr[0]
             }
-
+            $.get(FAVORITE_URL,params,function (result) {
+                if (result.data === 1) {
+                    alert("收藏成功")
+                    favoriteOK();
+                } else {
+                    alert("收藏失败");
+                }
+            })
         })
     })
+
+    //删除收藏
+    $(function () {
+        $("#delFavorite").click(function () {
+            let params = {
+                action:"del",
+                rid:id,
+                username:arr[0]
+            }
+            $.get(FAVORITE_URL,params,function (result) {
+                if (result.data === 1) {
+                    alert("收藏已取消");
+                    favoriteNO()
+                } else {
+                    alert("取消收藏失败");
+                }
+            })
+        })
+    })
+
+    //已收藏时使用
+    function favoriteOK() {
+        $("#favorite").text("已收藏");
+        $("#favorite").addClass("already");
+        $("#favorite").attr("disabled","disabled");
+        $("#delFavorite").removeClass("already");
+        $("#delFavorite").removeAttr("disabled");
+    }
+
+    //未收藏时使用
+    function favoriteNO() {
+        $("#favorite").text("点击收藏");
+        $("#favorite").removeClass("already");
+        $("#favorite").removeAttr("disabled");
+        $("#delFavorite").addClass("already");
+        $("#delFavorite").attr("disabled","disabled");
+    }
 
     $(document).ready(function() {
         //焦点图效果

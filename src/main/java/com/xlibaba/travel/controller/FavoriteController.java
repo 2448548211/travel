@@ -28,14 +28,20 @@ public class FavoriteController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         //创建数据包对象
         BaseResponseEntity<Integer> entity = null;
-        //操作类型
+        //获取前端数据
+        String username = req.getParameter("username");
+        String rid = req.getParameter("rid");
         String action = req.getParameter("action");
-        System.out.println(action);
+        //状态
+        int state = 0;
+
+        //操作类型
         switch (action) {
             case "add": //添加
-                entity = getAdd(req);
+                state = service.deleteFavorite(rid, username);
                 break;
             case "del": //删除
+                state = service.deleteFavorite(rid, username);
                 break;
             case "listDel": //批量删除
                 break;
@@ -43,17 +49,39 @@ public class FavoriteController extends HttpServlet {
                 break;
         }
 
+        //响应前端
+        try {
+            entity = BaseResponseEntity.success(state);
+        } catch (Exception e) {
+            entity = BaseResponseEntity.error(404,"网络错误");
+        }
         ResponseUtil.sendJSON(resp,entity);
+    }
+
+    //删除
+    private BaseResponseEntity<Integer> toDel(HttpServletRequest req) {
+        BaseResponseEntity<Integer> entity;
+        //获取前端数据
+        String username = req.getParameter("username");
+        String rid = req.getParameter("rid");
+        //业务操作
+        int stateFavorite = service.deleteFavorite(rid, username);
+        try {
+            entity = BaseResponseEntity.success(stateFavorite);
+        } catch (Exception e) {
+            entity = BaseResponseEntity.error(404,"网络错误");
+        }
+        return entity;
     }
 
     //添加
     private BaseResponseEntity<Integer> getAdd(HttpServletRequest req) {
-        BaseResponseEntity<Integer> entity;//获取前端数据
+        BaseResponseEntity<Integer> entity;
+        //获取前端数据
         String username = req.getParameter("username");
         String rid = req.getParameter("rid");
-
+        //业务操作
         int line = service.saveFavorite(rid, username);
-
         try {
             entity = BaseResponseEntity.success(line);
         } catch (Exception e) {

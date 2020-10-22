@@ -20,7 +20,13 @@ public interface IFavoriteDao {
     //添加收藏
     int insertFavorite(Favorite favorite);
 
-    //删除收藏
-    int deleteFavorite(int rid);
+    //通过rid和uid删除收藏
+    int deleteFavorite(int rid, int uid);
+
+    //通过rid和uid查询收藏表数据；del:0已删除的数据数据,1未已删除的数据数据
+    Favorite getFavorite(int rid, int uid, int del);
+
+    //恢复已删除的数据
+    int restoreFavorite(int rid, int uid);
 
 }

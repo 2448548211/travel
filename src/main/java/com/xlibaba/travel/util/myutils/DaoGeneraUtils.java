@@ -177,6 +177,12 @@ public class DaoGeneraUtils<T> {
     }
 
 
+    /**
+     * 通过SQL语句添加数据
+     * @param sql
+     * @param datas 为占位符数值，无占位符则不需要
+     * @return
+     */
     public int insertSQL(String sql, Object ... datas) {
         Connection conn = DBUtils.getConnection();
         PreparedStatement ps = null;
@@ -250,7 +256,6 @@ public class DaoGeneraUtils<T> {
         String sql = "UPDATE "+tabName+" SET is_del=0 WHERE "+idName+"=?";
         Connection conn = DBUtils.getConnection();
         PreparedStatement ps = null;
-        ResultSet rs = null;
         int line = 0;
         try {
             ps = conn.prepareStatement(sql);
@@ -258,6 +263,31 @@ public class DaoGeneraUtils<T> {
             line = ps.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        } finally {
+            DBUtils.closeAll(conn,ps);
+        }
+        return line;
+    }
+
+    /**
+     * 通过SQL语句删除数据
+     * @param datas 为占位符数值，无占位符则不需要
+     * @return
+     */
+    public int deleteSQL(String sql, Object ... datas) {
+        Connection conn = DBUtils.getConnection();
+        PreparedStatement ps = null;
+        int line = 0;
+        try {
+            ps = conn.prepareStatement(sql);
+            for (int i = 0; i < datas.length; i++) {
+                ps.setObject(i+1,datas[i]);
+            }
+            line = ps.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            DBUtils.closeAll(conn,ps);
         }
         return line;
     }
