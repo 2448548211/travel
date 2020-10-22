@@ -11,7 +11,7 @@ public class Route implements Serializable {
     private int rid;//线路id，必输
     private String rname;//线路名称，必输
     private double price;//价格，必输
-    private String routeIntroduce;//线路介绍
+    private String routeintroduce;//线路介绍
     private String rflag;   //是否上架，必输，0代表没有上架，1代表是上架
     private String rdate;   //上架时间
     private String isThemeTour;//是否主题旅游，必输，0代表不是，1代表是
@@ -32,6 +32,15 @@ public class Route implements Serializable {
      */
     public Route(){}
 
+    public Route(int rid, String rname, double price, int count, String rimage, int sid) {
+        this.rid = rid;
+        this.rname = rname;
+        this.price = price;
+        this.count = count;
+        this.rimage = rimage;
+        this.sid = sid;
+    }
+
     /**
      * 有参构造方法
      * @param rid
@@ -51,7 +60,7 @@ public class Route implements Serializable {
         this.rid = rid;
         this.rname = rname;
         this.price = price;
-        this.routeIntroduce = routeIntroduce;
+        this.routeintroduce = routeIntroduce;
         this.rflag = rflag;
         this.rdate = rdate;
         this.isThemeTour = isThemeTour;
@@ -118,12 +127,12 @@ public class Route implements Serializable {
         this.price = price;
     }
 
-    public String getRouteIntroduce() {
-        return routeIntroduce;
+    public String getRouteintroduce() {
+        return routeintroduce;
     }
 
-    public void setRouteIntroduce(String routeIntroduce) {
-        this.routeIntroduce = routeIntroduce;
+    public void setRouteintroduce(String routeintroduce) {
+        this.routeintroduce = routeintroduce;
     }
 
     public String getRflag() {

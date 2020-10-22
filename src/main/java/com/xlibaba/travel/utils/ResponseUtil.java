@@ -1,4 +1,4 @@
-package com.xlibaba.travel.util.myutils;
+package com.xlibaba.travel.utils;
 
 import com.alibaba.fastjson.JSON;
 
@@ -20,7 +20,7 @@ public class ResponseUtil {
      * @author ChenWang
      * @date 2020/10/13 20:14
      */
-    public static void sendJSON(HttpServletResponse resp, Object obj) throws IOException {
+    public static void sendJson(HttpServletResponse resp, Object obj) throws IOException {
         //设置响应的编码格式
         resp.setCharacterEncoding("UTF-8");
         //告知请求方响应返回的数据类型是什么
