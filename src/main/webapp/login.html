@@ -5,9 +5,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>黑马旅游网-登录</title>
-	<script src="js/bs.js"></script>
-	<link rel="stylesheet" type="text/css" href="css/common.css">
+    <title>黑马旅游网-登录</title>  
+    <link rel="stylesheet" type="text/css" href="css/common.css">
     <link rel="stylesheet" type="text/css" href="css/login.css">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -21,12 +20,14 @@
 	<!--<script src="js/jquery-3.3.1.js"></script>-->
 	<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+	<script src="js/bs.js"></script>
+
 	<!--此页面业务相关的脚本-->
 	<script>
 		//登录控制
 		const LOGIN_URL = BASE_URL+"/login";
 		//验证码
-		const CHECK_URL = BASE_URL+"/checkCode?";
+		const CHECK_URL = "/checkCode?";
 
 		<!--图片点击事件-->
 		function changeCheckCode(img) {
@@ -69,12 +70,14 @@
 		//cookie解析
 		$(function () {
 			let cookie = $.cookie('username');
-			let strs = new Array(); //定义一数组
-			strs = cookie.split("&"); //字符分割
-			if (strs.length === 3) {
-				$("#username").val(strs[0]);
-				$("#password").val(strs[1]);
-				$("#remember").prop("checked",true);
+			if (cookie !== "undefined") {
+				let strs = new Array(); //定义一数组
+				strs = cookie.string.split("&"); //字符分割
+				if (strs.length === 3) {
+					$("#username").val(strs[0]);
+					$("#password").val(strs[1]);
+					$("#remember").prop("checked",true);
+				}
 			}
 		})
 	</script>
@@ -99,7 +102,7 @@
         		<div id="errorMsg" class="alert alert-danger" ></div>
 
 				<!--登录数据-->
-				<form id="loginForm" action="" method="post" accept-charset="utf-8">
+				<form id="loginForm"><!-- action="" method="post" accept-charset="utf-8"-->
         			<input type="hidden" name="action" value="login"/>
 					<!--账号-->
 					<input id="username" name="username" type="text" placeholder="请输入账号" autocomplete="off">

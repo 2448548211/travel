@@ -1,6 +1,7 @@
 package com.xlibaba.travel.dao.impl;
 
 import com.xlibaba.travel.dao.IFavoriteDao;
+import com.xlibaba.travel.entity.Favorite;
 import com.xlibaba.travel.entity.Route;
 import com.xlibaba.travel.util.myutils.DBUtil;
 import com.xlibaba.travel.util.myutils.SingleSqlUtil;
@@ -37,5 +38,15 @@ public class FavoriteDaoImpl implements IFavoriteDao {
         String sql = "SELECT COUNT(rid) FROM tab_favorite WHERE uid = ?";
         //注意此处返回的值是Long包装类，不能直接强转为int型，要通过其封装的方法进行强转
         return SingleSqlUtil.excuteQuery(Long.class,sql,id).intValue();
+    }
+
+    @Override
+    public int insertFavorite(Favorite favorite) {
+        return 0;
+    }
+
+    @Override
+    public int deleteFavorite(int rid) {
+        return 0;
     }
 }
