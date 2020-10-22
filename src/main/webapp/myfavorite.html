@@ -6,15 +6,83 @@
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="css/common.css">
         <link rel="stylesheet" href="css/index.css">
-       <style>
+        <style>
            .tab-content .row>div {
             margin-top: 16px;
            } 
            .tab-content {
             margin-bottom: 36px;
            }
-       </style>
-       <script src="js/jquery-3.3.1.js"></script>
+        </style>
+        <script src="js/jquery-3.3.1.js"></script>
+        <script src="js/bs.js"></script>
+        <script type="text/javascript">
+            const MYFAVORITE_URL = BASE_URL+"/myFavorite";
+            $(function (){
+                function addElement(item,rowId,colClass) {
+                    $(rowId).append(
+                        $("<div>").addClass(colClass)
+                            .append(
+                                $("<a>").attr("href", BASE_URL + "/route_detail.html?id=" + item.rid)
+                                    .append(
+                                        $("<img>").attr("src", item.rimage).attr("alt", "")
+                                    ).append(
+                                    $("<div>").addClass("has_border")
+                                        .append(
+                                            $("<h3>").text(item.rname)
+                                        ).append(
+                                        $("<div>").addClass("price").text("网付价")
+                                            .append(
+                                                $("<em>").text("￥")
+                                            ).append(
+                                            $("<strong>").text(item.price)
+                                        ).append(
+                                            $("<em>").text("起")
+                                        )
+                                    )
+                                )
+                            )
+                    )
+                }
+                $.get(MYFAVORITE_URL,function (result){
+                    if(result.code === 200){
+                        for (const conitem of result.data.routes){
+                            addElement(conitem,"#con_row","col-md-3");
+                        }
+                        $("#pagination").append(
+                            $("<li>").append(
+                                $("<a>").attr("href","").text("首页").click(choosePage(1))
+                            )
+                        )
+                        for (let i = 0; i < result.data.pageCount; i++) {
+                            $("#pagination").append(
+                                $("<li>").append(
+                                    $("<a>").attr("href","").text(i+1).click(choosePage(i+1))
+                                )
+                            )
+                        }
+                        $("#pagination").append(
+                            $("<li>").append(
+                                $("<a>").attr("href","").text("尾页").addClass("threeword").click(choosePage(result.data.pageCount))
+                            )
+                        )
+                    }
+                })
+
+                function choosePage(currentPage){
+                    let params = {
+                        currentPage : currentPage
+                    }
+                    $.get(MYFAVORITE_URL,params,function (result){
+                        $("#con_row").html("");
+                        for (const conitem of result.data.routes){
+                            addElement(conitem,"#con_row","col-md-3");
+                        }
+                    })
+
+                }
+            })
+        </script>
     </head>
     <body>
     <!--引入头部-->
@@ -32,8 +100,8 @@
                     <!-- Tab panes -->
                     <div class="tab-content">
                         <div role="tabpanel" class="tab-pane active" id="home">
-                            <div class="row">
-                                <div class="col-md-3">
+                            <div class="row" id="con_row">
+                                <!--<div class="col-md-3">
                                     <a href="route_detail.html">
                                         <img src="images/collection_pic.jpg" alt="">
                                         <div class="has_border">
@@ -133,23 +201,24 @@
                                     </a>
                                 </div>
                                 <div class="col-md-3">
-                                    <a href="jroute_detail.html">
+                                    <a href="route_detail.html">
                                         <img src="images/collection_pic.jpg" alt="">
                                         <div class="has_border">
                                             <h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
                                             <div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>
                                         </div>
                                     </a>
-                                </div>
+                                </div>-->
                             </div>
                         </div>                       
                     </div>
                 </div>
                 <div class="pageNum">
-                    <ul>
-                        <li><a href="">首页</a></li>
+                    <ul id = "pagination">
+                        <!--
+                        <li><a href="">首页 </a></li>
                         <li class="threeword"><a href="#">上一页</a></li>
-                        <li><a href="#">1</a></li>
+                        &lt;!&ndash;<li><a href="#">1</a></li>
                         <li><a href="#">2</a></li>
                         <li><a href="#">3</a></li>
                         <li><a href="#">4</a></li>
@@ -158,9 +227,10 @@
                         <li><a href="#">7</a></li>
                         <li><a href="#">8</a></li>
                         <li><a href="#">9</a></li>
-                        <li><a href="#">10</a></li>
+                        <li><a href="#">10</a></li>&ndash;&gt;
                         <li class="threeword"><a href="javascript:;">下一页</a></li>
                         <li class="threeword"><a href="javascript:;">末页</a></li>
+                        -->
                     </ul>
                 </div>
             </section>                      
