@@ -27,7 +27,14 @@ public class Route implements Serializable {
     private List<RouteImg> routeImgList;//商品详情图片列表
     */
 
-
+    public Route(int rid, String rname, double price, int count, String rimage, int sid) {
+        this.rid = rid;
+        this.rname = rname;
+        this.price = price;
+        this.count = count;
+        this.rimage = rimage;
+        this.sid = sid;
+    }
 
     /**
      * 无参构造方法
