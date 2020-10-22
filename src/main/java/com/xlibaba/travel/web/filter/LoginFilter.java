@@ -1,13 +1,13 @@
 package com.xlibaba.travel.web.filter;
 
+import com.xlibaba.travel.util.myutils.RequestUserDataUtil;
+
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.*;
 import java.io.IOException;
-import java.util.logging.Filter;
-import java.util.logging.LogRecord;
 
 /**
  * @author ChenWang
@@ -29,19 +29,12 @@ public class LoginFilter extends DefaultFilter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse resp = (HttpServletResponse) response;
-        String username = null;
-        Cookie[] cookies = req.getCookies();
-        for (Cookie c:cookies){
-            if(USERNAME.equals(c.getName())){
-                username = c.getValue();
-            }
-        }
-        if(null==username||"".equals(username)){
-            HttpSession session = req.getSession();
-            username = (String) session.getAttribute(USERNAME);
-        }
+        String username = RequestUserDataUtil.getUsernameFromAuthority(req);
         String requestURI = req.getRequestURI();
-        boolean flag = requestURI.endsWith("index") || requestURI.endsWith("login") || requestURI.endsWith("register") || username != null;
+        boolean flag = requestURI.endsWith("index") ||
+                requestURI.endsWith("login") ||
+                requestURI.endsWith("register") ||
+                username != null;
         if (flag) {
             filterChain.doFilter(request, response);
         } else {
