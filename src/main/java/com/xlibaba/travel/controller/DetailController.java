@@ -29,7 +29,9 @@ public class DetailController extends HttpServlet {
         //创建数据包对象
         BaseResponseEntity<Detail> entity = null;
         String id = req.getParameter("id");
-        Detail detail = service.getDetailImgById(Integer.parseInt(id));
+        String username = req.getParameter("username");
+        System.out.println(username);
+        Detail detail = service.getDetailImgById(Integer.parseInt(id),username);
         try {
             entity = BaseResponseEntity.success(detail);
         } catch (Exception e) {

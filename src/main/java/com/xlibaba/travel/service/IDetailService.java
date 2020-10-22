@@ -8,6 +8,9 @@ import java.util.List;
 public interface IDetailService {
 
     //以id查询数据
-    public Detail getDetailImgById(int id);
+    public Detail getDetailImgById(int id, String username);
+
+    //查询收藏状态
+    int getFavoriteStateByID(int rid, String username);
 
 }
