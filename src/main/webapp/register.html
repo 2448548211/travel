@@ -8,28 +8,28 @@
     <!--导入jquery-->
     <script src="js/jquery-3.3.1.js"></script>
     <script>
+        const BASE_URL = "http://localhost:8080/travel";
         //注册控制
-        const REGISTER_URL = "http://localhost:8080/travel/register";
+        const REGISTER_URL = BASE_URL+"/register";
         $(function () {
             //注册点击事件
             $("#registerBtn").click(function () {
-                let username = $("#username").val();
-                let password = $("#password").val();
-                let name = $("#name").val();
-                let birthday = $("#birthday").val();
-                let sex = $("#sex").val();
-
-                let telephone = $("#telephone").val();
-                let email = $("#email").val();
-                let code = $("#check").val();
-                if (username != "" || password != "") {
+                if (username !== "" || password !== "") {
+                    let username = $("#username").val();
+                    let password = $("#password").val();
+                    let name = $("#name").val();
+                    /*let birthday = $("#birthday").val();
+                    let sex = $("#sex").val();*/
+                    let telephone = $("#telephone").val();
+                    let email = $("#email").val();
+                    let code = $("#check").val();
                     //设置发送给后台的数据
                     let params = {
                         username: username,
                         password: password,
                         name: name,
-                        birthday: birthday,
-                        sex: sex,
+                        /*birthday: birthday,
+                        sex: sex,*/
                         telephone: telephone,
                         email: email,
                         code: code
@@ -37,7 +37,8 @@
                     //发送请求
                     $.post(REGISTER_URL, params, function (result) {
                         if (result.code === 200) {
-                            location.href = "index.html?" + username;
+                            alert(result.msg);
+                            location.href = "login.html?";
                         } else {
                             alert(result.msg);
                             $("#errorMsg").text(result.msg).show();
@@ -107,7 +108,7 @@
                             <input type="text" id="telephone" name="telephone" placeholder="请输入您的手机号">
                         </td>
                     </tr>
-                    <tr>
+                    <!--<tr>
                         <td class="td_left">
                             <label for="sex">性别</label>
                         </td>
@@ -123,7 +124,7 @@
                         <td class="td_right">
                             <input type="date" id="birthday" name="birthday" placeholder="年/月/日">
                         </td>
-                    </tr>
+                    </tr>-->
                     <tr>
                         <td class="td_left">
                             <label for="check">验证码</label>

@@ -36,8 +36,8 @@ public class RegisterController extends HttpServlet {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
         String name = req.getParameter("name");
-        String birthday = req.getParameter("birthday");
-        String sex = req.getParameter("sex");
+        /*String birthday = req.getParameter("birthday");
+        String sex = req.getParameter("sex");*/
         String telephone = req.getParameter("telephone");
         String email = req.getParameter("email");
         String code = req.getParameter("code");
@@ -54,15 +54,17 @@ public class RegisterController extends HttpServlet {
             user.setUsername(username);
             user.setPassword(password);
             user.setName(name);
-            user.setBirthday(birthday);
-            user.setSex(sex);
+            /*user.setBirthday(birthday);
+            user.setSex(sex);*/
             user.setTelephone(telephone);
             user.setEmail(email);
             service.insertUser(user);
+            entity = BaseResponseEntity.success(200,"注册成功",true);
+            ResponseUtil.sendJSON(resp, entity);
         }else {
             entity = BaseResponseEntity.error(400,"用户名已存在");
+            //返回数据给前端
+            ResponseUtil.sendJSON(resp, entity);
         }
-        //返回数据给前端
-        ResponseUtil.sendJSON(resp, entity);
     }
 }
