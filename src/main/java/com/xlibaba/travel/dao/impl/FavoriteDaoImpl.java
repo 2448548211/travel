@@ -29,12 +29,12 @@ public class FavoriteDaoImpl implements IFavoriteDao {
                 "r.rimage," +
                 "r.sid," +
                 "r.sourceId FROM tab_route r LEFT JOIN " +
-                " tab_favorite f ON r.rid=f.rid WHERE f.uid = ? limit ?,?";
+                " tab_favorite f ON r.rid=f.rid WHERE f.uid = ? AND f.is_del = 1 limit ?,?";
         return DBUtil.getDbUtil().excuteQuery(sql,Route.class,id,offset,pageSize);
     }
     @Override
     public int getTotalCount(Integer id) {
-        String sql = "SELECT COUNT(rid) FROM tab_favorite WHERE uid = ?";
+        String sql = "SELECT COUNT(rid) FROM tab_favorite WHERE uid = ? AND is_del = 1";
         //注意此处返回的值是Long包装类，不能直接强转为int型，要通过其封装的方法进行强转
         return SingleSqlUtil.excuteQuery(Long.class,sql,id).intValue();
     }
