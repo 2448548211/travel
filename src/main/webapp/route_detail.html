@@ -175,7 +175,8 @@
                 if (result.data === 1) {
                     alert("收藏成功")
                     favoriteOK();
-                    $("#favoriteSize").text($("#favoriteSize").text()+1);
+                    var number = parseInt($("#favoriteSize").text()) + 1;
+                    $("#favoriteSize").text(number);
                 } else {
                     alert("收藏失败");
                 }
@@ -195,6 +196,8 @@
                 if (result.data === 1) {
                     alert("收藏已取消");
                     favoriteNO()
+                    var number = parseInt($("#favoriteSize").text()) - 1;
+                    $("#favoriteSize").text(number);
                 } else {
                     alert("取消收藏失败");
                 }
