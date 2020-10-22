@@ -4,6 +4,7 @@ import com.xlibaba.travel.entity.BaseResponseEntity;
 import com.xlibaba.travel.service.IHeaderService;
 import com.xlibaba.travel.service.impl.HeaderServiceImpl;
 import com.xlibaba.travel.service.page.HeaderPage;
+import com.xlibaba.travel.util.myutils.RequestUserDataUtil;
 import com.xlibaba.travel.util.myutils.ResponseUtil;
 
 import javax.servlet.ServletException;
@@ -29,17 +30,8 @@ public class HeaderServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Cookie[] cookies = req.getCookies();
-        String username = null;
-        for (Cookie c:cookies){
-            if(USERNAME.equals(c.getName())){
-                username = c.getValue();
-            }
-        }
-        if(null==username||"".equals(username)){
-            HttpSession session = req.getSession();
-            username = (String) session.getAttribute(USERNAME);
-        }
+        //从cookies或者session中获取用户名
+        String username = RequestUserDataUtil.getUsernameFromAuthority(req);
         HeaderPage headerPage = headerService.getHeaderPage(username);
         BaseResponseEntity<HeaderPage> pakage = null;
         if(headerPage!=null){
