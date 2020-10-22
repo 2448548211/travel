@@ -1,18 +1,13 @@
 package com.xlibaba.travel.dao.impl;
 
-import com.xlibaba.travel.dao.IRouteDAO;
+import com.xlibaba.travel.dao.IRouteDao;
 import com.xlibaba.travel.entity.Route;
 import com.xlibaba.travel.util.myutils.DBUtil;
 
 import java.util.List;
 
-/**
- * @author ChenWang
- * @className RouteDAOImpl
- * @date 2020/10/21 10:23
- * @since JDK 1.8
- */
-public class RouteDAOImpl implements IRouteDAO {
+public class RouteDaoImpl implements IRouteDao {
+
     private static final String BASE_SQL = "SELECT rid," +
             "rname," +
             "price," +
@@ -25,6 +20,28 @@ public class RouteDAOImpl implements IRouteDAO {
             "rimage," +
             "sid," +
             "sourceId FROM tab_route";
+    @Override
+    public List<Route> selectRoutesByName(String routeName, int startIndex, int num) {
+        String sql = "select * from tab_route where name like \"%?%\" limit ?,?";
+        if (routeName == null || routeName == "") {
+            return selectRoutes(startIndex, num);
+        }
+        List<Route> routes = DBUtil.getDbUtil().excuteQuery(sql, Route.class, routeName, startIndex, num);
+        return routes;
+    }
+
+    @Override
+    public List<Route> selectRoutes(int startIndex, int num) {
+        String sql = "select * from tab_route limit ?,?";
+        return DBUtil.getDbUtil().excuteQuery(sql, Route.class, startIndex, num);
+    }
+
+    @Override
+    public Route selectRouteById(int id) {
+        String sql = "select * from tab_route where rid=?";
+        return DBUtil.getDbUtil().excuteQuery(sql, Route.class, id).get(0);
+    }
+
     @Override
     public List<Route> getAbroad() {
         return DBUtil.getDbUtil().excuteQuery(BASE_SQL+" WHERE cid = 6 OR cid = 8 ORDER BY price desc LIMIT 0,4",Route.class);

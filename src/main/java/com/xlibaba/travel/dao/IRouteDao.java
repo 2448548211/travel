@@ -6,11 +6,17 @@ import java.util.List;
 
 /**
  * @author ChenWang
- * @interfaceName IRouteDAO
- * @date 2020/10/21 10:22
+ * @interfaceName IRouteDao
+ * @date 2020/10/22 08:53
  * @since JDK 1.8
  */
-public interface IRouteDAO {
+public interface IRouteDao {
+    List<Route> selectRoutesByName(String routeName, int startIndex, int num);
+
+    List<Route> selectRoutes(int startIndex, int num);
+
+    Route selectRouteById(int id);
+
     List<Route> getAbroad();
 
     List<Route> getDomestic();
