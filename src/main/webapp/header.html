@@ -49,58 +49,6 @@
     }
 
 </script>
-<script>
-    const BASE_URL = "http://localhost:8080//travel_war";
-    const HEADER_URL = BASE_URL+"/header";
-    $(function (){
-        let username = getQueryString("username");
-        let params = {
-            username : username
-        }
-        $.post(HEADER_URL,params,function (result){
-            if (result.code === 200) {
-                /*result.data.navBar.each(function(index){
-                })*/
-                for (const navitem of result.data.navBar) {
-                    $("#navitem_ul").append(
-                        $("<li>").append(
-                            $("<a>")
-                                .attr("href","route_list.html")
-                                .text(navitem)
-                        )
-                    )
-                }
-                $("#navitem_ul").append(
-                    $("<li>").append(
-                        $("<a>")
-                            .attr("href","favoriterank.html")
-                            .text("收藏排行榜")
-                    )
-                )
-                if(result.data.username===null||result.data.username===undefined){
-                    $("#login_header").css("display","none")
-                    $("#login_out_header").css("display","block")
-                }else{
-                    $("#username").text("欢迎回来，"+username)
-                    $("#login_header").css("display","block")
-                    $("#login_out_header").css("display","none")
-                }
-            }
-        })
-    })
-    //获取URL链接上指定KEY的value
-    function getQueryString(name){
-        let reg = new RegExp("^|&"+name+"=([^|&]*)(&|$)");
-        //索引从?开始，?处为0
-        let r = window.location.search.substr(1).match(reg);
-        if(r!=null){
-            //计算一个新字符串，其中十六进制转义序列用它所表示的字符替换。
-            return unescape(r[2]);
-        }
-        return null;
-    }
-
-</script>
 
 <!-- 头部 start -->
     <header id="header">

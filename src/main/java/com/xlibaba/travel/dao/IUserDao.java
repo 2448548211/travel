@@ -19,4 +19,6 @@ public interface IUserDao {
 
     //删除
     public int deleteUser(String name);
+
+    Integer getIdByName(String username);
 }

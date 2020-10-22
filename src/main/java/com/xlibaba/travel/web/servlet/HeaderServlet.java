@@ -8,11 +8,9 @@ import com.xlibaba.travel.util.myutils.ResponseUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 import java.io.IOException;
+import java.util.Arrays;
 
 /**
  * @author ChenWang
@@ -23,7 +21,7 @@ import java.io.IOException;
 @WebServlet("/header")
 public class HeaderServlet extends HttpServlet {
     private IHeaderService headerService = new HeaderServiceImpl();
-
+    private static final String USERNAME = "username";
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doPost(req,resp);
@@ -31,8 +29,17 @@ public class HeaderServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession();
-        String username = (String) session.getAttribute("username");
+        Cookie[] cookies = req.getCookies();
+        String username = null;
+        for (Cookie c:cookies){
+            if(USERNAME.equals(c.getName())){
+                username = c.getValue();
+            }
+        }
+        if(null==username||"".equals(username)){
+            HttpSession session = req.getSession();
+            username = (String) session.getAttribute(USERNAME);
+        }
         HeaderPage headerPage = headerService.getHeaderPage(username);
         BaseResponseEntity<HeaderPage> pakage = null;
         if(headerPage!=null){
