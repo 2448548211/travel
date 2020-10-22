@@ -4,8 +4,13 @@ import com.xlibaba.travel.dao.IFavoriteDao;
 import com.xlibaba.travel.entity.Favorite;
 import com.xlibaba.travel.entity.Route;
 import com.xlibaba.travel.util.myutils.DBUtil;
+import com.xlibaba.travel.util.myutils.DBUtils;
+import com.xlibaba.travel.util.myutils.DaoGeneraUtils;
 import com.xlibaba.travel.util.myutils.SingleSqlUtil;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -40,9 +45,27 @@ public class FavoriteDaoImpl implements IFavoriteDao {
         return SingleSqlUtil.excuteQuery(Long.class,sql,id).intValue();
     }
 
+    DaoGeneraUtils daoUtil = new DaoGeneraUtils();
+
     @Override
     public int insertFavorite(Favorite favorite) {
-        return 0;
+        String sql = "INSERT INTO tab_favorite(rid,date,uid) values(?,?,?);";
+        /*Connection conn = DBUtils.getConnection();
+        PreparedStatement ps = null;
+        int line = 0;
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1,favorite.getRid());
+            ps.setString(2,favorite.getDate());
+            ps.setInt(3,favorite.getUid());
+            line = ps.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            DBUtils.closeAll(conn,ps);
+        }
+        return line;*/
+        return daoUtil.insertSQL(sql,favorite.getRid(),favorite.getDate(),favorite.getUid());
     }
 
     @Override
