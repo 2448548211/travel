@@ -2,10 +2,7 @@ package com.xlibaba.travel.web.servlet;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 import java.io.IOException;
 
 /**
@@ -16,12 +13,21 @@ import java.io.IOException;
  */
 @WebServlet("/exit")
 public class ExitServlet extends HttpServlet {
+    private static final String USERNAME = "username";
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Cookie[] cookies = req.getCookies();
+        for (Cookie c:cookies){
+            if(USERNAME.equals(c.getName())){
+                c.setValue(null);
+                c.setMaxAge(0);
+            }
+        }
         HttpSession session = req.getSession();
-        session.setMaxInactiveInterval(0);
+        //第一种时长
+        //session.setMaxInactiveInterval(0);
         //第二种让session失效的方法
-        //session.invalidate();
+        session.invalidate();
         //第三种
         //session.removeAttribute("username");
         resp.sendRedirect(req.getContextPath()+"index.html");
