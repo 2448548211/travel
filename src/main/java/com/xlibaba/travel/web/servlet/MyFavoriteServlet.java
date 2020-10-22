@@ -4,6 +4,7 @@ import com.xlibaba.travel.entity.BaseResponseEntity;
 import com.xlibaba.travel.service.IMyFavoriteService;
 import com.xlibaba.travel.service.impl.MyFavoriteServiceImpl;
 import com.xlibaba.travel.service.page.MyFavoritePage;
+import com.xlibaba.travel.util.myutils.RequestUserDataUtil;
 import com.xlibaba.travel.util.myutils.ResponseUtil;
 
 import javax.servlet.ServletException;
@@ -23,10 +24,14 @@ import java.io.IOException;
 @WebServlet("/myFavorite")
 public class MyFavoriteServlet extends HttpServlet {
     private IMyFavoriteService myFavoriteService = new MyFavoriteServiceImpl();
+    private static final Integer ONE = 1;
+    private static final String CURRENT_PAGE = "currentPage";
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String username = (String)req.getSession().getAttribute("username");
-        Integer currentPage = Integer.parseInt(req.getParameter("currentPage"));
+        String username = RequestUserDataUtil.getUsernameFromAuthority(req);
+        //String username = "zs";
+        String cp = req.getParameter(CURRENT_PAGE);
+        Integer currentPage = cp==null||"".equals(cp)?ONE:Integer.parseInt(req.getParameter(CURRENT_PAGE));
         MyFavoritePage myFavoritePage = myFavoriteService.getMyFavoritePage(username,currentPage);
         BaseResponseEntity<MyFavoritePage> pakage = null;
         if(myFavoritePage==null){
