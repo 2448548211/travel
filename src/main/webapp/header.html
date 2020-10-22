@@ -1,7 +1,7 @@
 <script>
     const HEADER_URL = BASE_URL+"/header";
     $(function (){
-        let username = getQueryString("username")?getQueryString("username"):"";
+        let username = getQueryString("username");
         let params = {
             username : username
         }
@@ -25,19 +25,16 @@
                             .text("收藏排行榜")
                     )
                 )
-                let use = result.data.username;
-                //let use = 'zs';
-                if(use===null||use==="undefined"||use===""){
+                if(result.data.username===null||result.data.username===undefined){
                     $("#login_header").css("display","none")
                     $("#login_out_header").css("display","block")
                 }else{
-                    $("#username").text("欢迎回来，"+use)
+                    $("#username").text("欢迎回来，"+username)
                     $("#login_header").css("display","block")
                     $("#login_out_header").css("display","none")
                 }
             }
         })
-        $("")
     })
     //获取URL链接上指定KEY的value
     function getQueryString(name){
@@ -66,9 +63,10 @@
             </div>
             <!-- 登录状态  -->
             <div class="login" id="login_header">
+            	
                 <span id="username">欢迎回来，admin</span>
                 <a href="myfavorite.html" class="collection">我的收藏</a>
-                <a href="exit">退出</a>
+                <a href="http://localhost:8080/travel_war/exit">退出</a>
             </div>
         </div>
         <div class="header_wrap">

@@ -12,12 +12,12 @@ import com.xlibaba.travel.service.page.HeaderPage;
  * @since JDK 1.8
  */
 public class HeaderServiceImpl implements IHeaderService {
-    private ICategoryDao categoryDao = new CategoryDaoImpl();
+    private ICategoryDao categoryDAO = new CategoryDaoImpl();
     @Override
     public HeaderPage getHeaderPage(String username) {
         HeaderPage headerPage = new HeaderPage();
         headerPage.setUsername(username);
-        headerPage.setNavBar(categoryDao.selectAll());
+        headerPage.setNavBar(categoryDAO.selectAll());
         return headerPage;
     }
 }

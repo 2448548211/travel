@@ -2,7 +2,10 @@ package com.xlibaba.travel.web.servlet;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
@@ -15,18 +18,12 @@ import java.io.IOException;
 public class ExitServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Cookie[] cookies = req.getCookies();
-        for (Cookie c:cookies){
-
-        }
         HttpSession session = req.getSession();
-        //第一种时长
-        //session.setMaxInactiveInterval(0);
+        session.setMaxInactiveInterval(0);
         //第二种让session失效的方法
-        session.invalidate();
+        //session.invalidate();
         //第三种
         //session.removeAttribute("username");
-
-        resp.sendRedirect(req.getContextPath()+"/index.html");
+        resp.sendRedirect(req.getContextPath()+"index.html");
     }
 }
