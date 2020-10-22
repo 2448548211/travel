@@ -1,7 +1,7 @@
 <script>
     const HEADER_URL = BASE_URL+"/header";
     $(function (){
-        let username = getQueryString("username");
+        let username = getQueryString("username")?getQueryString("username"):"";
         let params = {
             username : username
         }
@@ -25,11 +25,13 @@
                             .text("收藏排行榜")
                     )
                 )
-                if(result.data.username===null||result.data.username===undefined){
+                let user = result.data.username;
+                //let use = 'zs';
+                if(user===null||user==="undefined"||user===""){
                     $("#login_header").css("display","none")
                     $("#login_out_header").css("display","block")
                 }else{
-                    $("#username").text("欢迎回来，"+username)
+                    $("#username").text("欢迎回来，"+user)
                     $("#login_header").css("display","block")
                     $("#login_out_header").css("display","none")
                 }
