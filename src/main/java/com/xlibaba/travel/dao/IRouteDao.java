@@ -28,4 +28,10 @@ public interface IRouteDao {
     List<Route> getNew();
 
     List<Route> getTheme();
+
+    //获取总记录数
+    public int getSum();
+
+    //根据路线名字查询所有
+    public int getSumByName(String routeName);
 }
