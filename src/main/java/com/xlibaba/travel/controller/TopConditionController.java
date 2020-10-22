@@ -29,15 +29,18 @@ public class TopConditionController extends HttpServlet {
         String title = req.getParameter("title");
         String minPrice = req.getParameter("minPrice");
         String maxPrice = req.getParameter("maxPrice");
+        //获取当前页
+        String page = req.getParameter("page");
         BaseResponseEntity<FavoriteData> responseEntity = null;
         try {
             //条件查询获取数据
-            FavoriteData data = service.getTopListByCondition(title,minPrice,maxPrice);
+            FavoriteData data = service.getTopListByCondition(title,minPrice,maxPrice,page);
             //数据存储
             responseEntity = BaseResponseEntity.success(data);
         } catch (Exception e){
             responseEntity = BaseResponseEntity.error();
         }
+        //响应前端
         ResponseUtil.sendJson(resp,responseEntity);
     }
 }
