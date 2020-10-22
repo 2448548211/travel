@@ -4,7 +4,7 @@ import com.xlibaba.travel.entity.BaseResponseEntity;
 import com.xlibaba.travel.entity.FavoriteData;
 import com.xlibaba.travel.service.TopFavoriteService;
 import com.xlibaba.travel.service.impl.TopFavoriteServiceImpl;
-import com.xlibaba.travel.utils.ResponseUtil;
+import com.xlibaba.travel.util.myutils.ResponseUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -35,6 +35,6 @@ public class TopFavoriteController extends HttpServlet {
             responseEntity = BaseResponseEntity.error();
         }
         //响应 -- 将数据对象转换为json数据，然后响应给前端
-        ResponseUtil.sendJson(resp,responseEntity);
+        ResponseUtil.sendJSON(resp,responseEntity);
     }
 }

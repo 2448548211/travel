@@ -4,7 +4,7 @@ import com.xlibaba.travel.entity.BaseResponseEntity;
 import com.xlibaba.travel.entity.FavoriteData;
 import com.xlibaba.travel.service.TopFavoriteService;
 import com.xlibaba.travel.service.impl.TopFavoriteServiceImpl;
-import com.xlibaba.travel.utils.ResponseUtil;
+import com.xlibaba.travel.util.myutils.ResponseUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -41,6 +41,6 @@ public class TopConditionController extends HttpServlet {
             responseEntity = BaseResponseEntity.error();
         }
         //响应前端
-        ResponseUtil.sendJson(resp,responseEntity);
+        ResponseUtil.sendJSON(resp,responseEntity);
     }
 }
