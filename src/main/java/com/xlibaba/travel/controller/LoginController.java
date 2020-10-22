@@ -6,11 +6,9 @@ import com.xlibaba.travel.service.ILoginService;
 import com.xlibaba.travel.service.impl.LoginServiceImpl;
 import com.xlibaba.travel.util.myutils.ResponseUtil;
 
+import javax.mail.Session;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 import java.io.IOException;
 import java.net.URLEncoder;
 
@@ -42,7 +40,7 @@ public class LoginController extends HttpServlet {
         String serverCode = (String) req.getSession().getAttribute("CHECKCODE_SERVER");
         //验证码效验
         if (!serverCode.equals(code)) {
-            entity = entity.error(401,"验证码有误");
+            entity = BaseResponseEntity.error(401,"验证码有误");
             ResponseUtil.sendJSON(resp,entity);
             return;
         }
@@ -57,7 +55,7 @@ public class LoginController extends HttpServlet {
                 String cookieValue = username+"&"+password;
                 //判断是否勾选保存
                 String remember = req.getParameter("remember");
-                if (remember != null) {
+                if (remember.equals("yes")) {
                     cookieValue = cookieValue.concat("&"+remember);
                 }
                 //设置 cookie
@@ -67,12 +65,12 @@ public class LoginController extends HttpServlet {
 
                 //记录登录凭证 -- 在 session 中存储用户名
                 req.getSession().setAttribute("username",username);
-                entity = entity.success(true);
+                entity = BaseResponseEntity.success(true);
             } else {
-                entity = entity.error(403,"密码错误");
+                entity = BaseResponseEntity.error(403,"密码错误");
             }
         } else {
-            entity = entity.error(402,"用户名不存在");
+            entity = BaseResponseEntity.error(402,"用户名不存在");
         }
         //返回数据给前端
         ResponseUtil.sendJSON(resp,entity);

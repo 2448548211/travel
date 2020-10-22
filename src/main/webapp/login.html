@@ -5,8 +5,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>黑马旅游网-登录</title>  
-    <link rel="stylesheet" type="text/css" href="css/common.css">
+    <title>黑马旅游网-登录</title>
+	<script src="js/bs.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/common.css">
     <link rel="stylesheet" type="text/css" href="css/login.css">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -20,13 +21,12 @@
 	<!--<script src="js/jquery-3.3.1.js"></script>-->
 	<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
-
 	<!--此页面业务相关的脚本-->
 	<script>
 		//登录控制
-		const LOGIN_URL = "http://localhost:8080/travel/login";
+		const LOGIN_URL = BASE_URL+"/login";
 		//验证码
-		const CHECK_URL = "http://localhost:8080/travel/checkCode?";
+		const CHECK_URL = BASE_URL+"/checkCode?";
 
 		<!--图片点击事件-->
 		function changeCheckCode(img) {
@@ -39,13 +39,19 @@
 				let username = $("#username").val();
 				let password = $("#password").val();
 				if (username != "" || password != "") {
-					//let code = $("#code").val();
+					//选中的状态
+					let remember = null;
+					if ($("#remember").prop("checked")) {
+						remember = "yes";
+					}
+					//设置发送给后台的数据
 					let params = {
 						username: username,
 						password: password,
-						code: $("#code").val(),
-						remember: $("#remember").val()
+						remember: remember,
+						code: $("#code").val()
 					};
+					//发送请求
 					$.post(LOGIN_URL, params,function (result) {
 						if (result.code === 200) {
 							location.href = "index.html?"+username;
@@ -59,15 +65,16 @@
 				}
 			})
 		})
+
+		//cookie解析
 		$(function () {
 			let cookie = $.cookie('username');
-			alert("cookie	"+cookie);
-			if (cookie != null) {
-				var strs= new Array(); //定义一数组
-				strs=cookie.split("&"); //字符分割
-				alert(strs[0])
-				//$("#username").attr("value",strs.get(0));
-				$("#username").val("value",strs[0]);
+			let strs = new Array(); //定义一数组
+			strs = cookie.split("&"); //字符分割
+			if (strs.length === 3) {
+				$("#username").val(strs[0]);
+				$("#password").val(strs[1]);
+				$("#remember").prop("checked",true);
 			}
 		})
 	</script>
@@ -111,13 +118,13 @@
 					<div class="submit_btn">
         				<button id="loginBtn" type="button">登录</button>
         				<div class="auto_login">
-        					<input id="remember" value="yes" checked="" type="checkbox"   class="checkbox">
+        					<input id="remember" checked="" type="checkbox"   class="checkbox">
         					<span>记住我</span>
         				</div>        				
         			</div>
         		</form>
 
-        		<div class="reg">没有账户？<a href="javascript:;">立即注册</a></div>
+        		<div class="reg">没有账户？<a href="register.html">立即注册</a></div>
         	</div>
         </div>
     </section>
