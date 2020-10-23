@@ -38,7 +38,7 @@
 			$("#loginBtn").click(function () {
 				let username = $("#username").val();
 				let password = $("#password").val();
-				if (username != "" || password != "") {
+				if (username != "" && password != "") {
 					//选中的状态
 					let remember = null;
 					if ($("#remember").prop("checked")) {
@@ -69,7 +69,7 @@
 		//cookie解析
 		$(function () {
 			let cookie = $.cookie('username');
-			if (cookie != "undefined") {
+			if ($.cookie('username') != null) {
 				let strs = new Array(); //定义一数组
 				strs = cookie.toString().split("&"); //字符分割
 				if (strs.length === 3) {

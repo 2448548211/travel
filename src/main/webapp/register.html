@@ -35,7 +35,7 @@
                 let telephone = $("#telephone").val();
                 let email = $("#email").val();
                 let code = $("#check").val();
-                if (username !== "" || password !== "") {
+                if (username !== "" && password !== "") {
                     //设置发送给后台的数据
                     let params = {
                         username: username,

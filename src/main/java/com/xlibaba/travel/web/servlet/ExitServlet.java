@@ -16,13 +16,7 @@ public class ExitServlet extends HttpServlet {
     private static final String USERNAME = "username";
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        /*Cookie[] cookies = req.getCookies();
-        for (Cookie c:cookies){
-            if(USERNAME.equals(c.getName())){
-                c.setValue(null);
-                c.setMaxAge(0);
-            }
-        }*/
+        //修改cookie
         Cookie cookie = new Cookie(USERNAME,"");
         cookie.setMaxAge(0);
         resp.addCookie(cookie);

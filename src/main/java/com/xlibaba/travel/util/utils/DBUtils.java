@@ -1,4 +1,4 @@
-package com.xlibaba.travel.utils;
+package com.xlibaba.travel.util.utils;
 
 import com.alibaba.druid.pool.DruidDataSourceFactory;
 

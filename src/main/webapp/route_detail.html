@@ -109,10 +109,10 @@
 
 
     //Cookie解析
-    let cookie = $.cookie('username');
     let arr = new Array(); //定义一数组
-    if (cookie != "undefined") {
-        arr = cookie.toString().split("&"); //字符分割
+    if ($.cookie('username') != null) {
+        let cokie = $.cookie('username');
+        arr = cokie.split("&"); //字符分割
     }
 
     //发送请求获取数据
@@ -123,11 +123,15 @@
         }
         $.get(IMG_URL,params,function (result) {
             //收藏按钮设置
-            if (result.data.favoriteState === 1) {
-                //已收藏时使用
+            stateFav = result.data.favoriteState;
+            if (stateFav === 1) {
+                //已收藏
                 favoriteOK();
+            } else if (stateFav === -1) {
+                //未登录
+                favoriteNOlogin();
             } else {
-                //未收藏时使用
+                //未收藏
                 favoriteNO();
             }
             //数据展示
@@ -167,42 +171,54 @@
     //添加收藏
     $(function () {
         $("#favorite").click(function () {
-            let params = {
-                action:"add",
-                rid:id,
-                username:arr[0]
-            }
-            $.get(FAVORITE_URL,params,function (result) {
-                if (result.data === 1) {
-                    alert("收藏成功")
-                    favoriteOK();
-                    var number = parseInt($("#favoriteSize").text()) + 1;
-                    $("#favoriteSize").text(number);
-                } else {
-                    alert("收藏失败");
+            if (stateFav != -1) {
+                let params = {
+                    action:"add",
+                    rid:id,
+                    username:arr[0]
                 }
-            })
+                $.get(FAVORITE_URL,params,function (result) {
+                    if (result.data === 1) {
+                        alert("收藏成功")
+                        favoriteOK();
+                        var number = parseInt($("#favoriteSize").text()) + 1;
+                        $("#favoriteSize").text(number);
+                    } else {
+                        alert("收藏已存在");
+                    }
+                })
+            } else {
+                alert("请进行登录！")
+                location.href = "login.html";
+            }
+
         })
     })
 
     //删除收藏
     $(function () {
         $("#delFavorite").click(function () {
-            let params = {
-                action:"del",
-                rid:id,
-                username:arr[0]
-            }
-            $.get(FAVORITE_URL,params,function (result) {
-                if (result.data === 1) {
-                    alert("收藏已取消");
-                    favoriteNO()
-                    var number = parseInt($("#favoriteSize").text()) - 1;
-                    $("#favoriteSize").text(number);
-                } else {
-                    alert("取消收藏失败");
+            if (stateFav != -1) {
+                let params = {
+                    action:"del",
+                    rid:id,
+                    username:arr[0]
                 }
-            })
+                $.get(FAVORITE_URL,params,function (result) {
+                    if (result.data === 1) {
+                        alert("收藏已取消");
+                        favoriteNO()
+                        var number = parseInt($("#favoriteSize").text()) - 1;
+                        $("#favoriteSize").text(number);
+                    } else {
+                        alert("取消收藏失败");
+                    }
+                })
+            } else {
+                alert("请进行登录！")
+                location.href = "login.html";
+            }
+
         })
     })
 
@@ -220,6 +236,13 @@
         $("#favorite").text("点击收藏");
         $("#favorite").removeClass("already");
         $("#favorite").removeAttr("disabled");
+        $("#delFavorite").addClass("already");
+        $("#delFavorite").attr("disabled","disabled");
+    }
+
+    //未登录
+    function favoriteNOlogin()  {
+        $("#favorite").text("点击收藏");
         $("#delFavorite").addClass("already");
         $("#delFavorite").attr("disabled","disabled");
     }

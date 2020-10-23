@@ -2,7 +2,7 @@ package com.xlibaba.travel.dao.impl;
 
 import com.xlibaba.travel.dao.TopFavoriteDao;
 import com.xlibaba.travel.entity.Route;
-import com.xlibaba.travel.utils.DbManager;
+import com.xlibaba.travel.util.utils.DbManager;
 
 import java.util.List;
 

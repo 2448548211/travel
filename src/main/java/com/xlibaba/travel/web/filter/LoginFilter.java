@@ -36,7 +36,8 @@ public class LoginFilter extends DefaultFilter {
                 requestURI.endsWith("register.html") ||requestURI.endsWith("register")||
                 username != null;*/
                 (requestURI.endsWith("myfavorite.html")&&username!=null) ||(requestURI.endsWith("myFavorite")&&username!=null)
-                || !requestURI.endsWith("myfavorite.html");
+                        ||  (requestURI.endsWith("favorite")&&username!=null)
+                        || !requestURI.endsWith("myfavorite.html");
         if (flag) {
             filterChain.doFilter(request, response);
         } else {

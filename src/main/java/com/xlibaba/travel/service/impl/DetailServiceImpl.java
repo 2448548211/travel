@@ -36,8 +36,11 @@ public class DetailServiceImpl implements IDetailService {
         for (RouteImg rig : routeImgs) {
             imgList.add(rig.getBigPic());
         }
-        //获取收藏状态
-        int state = getFavoriteStateByID(id, username);
+        //获取收藏状态,默认为-1（未登录）
+        int state = -1 ;
+        if (username != null) {
+            state = getFavoriteStateByID(id, username);
+        }
 
         //获取并设置详细信息
         detail.setRoute(routeDao.selectRouteById(id));
@@ -48,7 +51,7 @@ public class DetailServiceImpl implements IDetailService {
         return detail;
     }
 
-    //查询收藏状态返回 0 为未收藏
+    //查询收藏状态,返回0为未收藏、1相反
     @Override
     public int getFavoriteStateByID(int rid, String username) {
         //查询用户数据
@@ -56,8 +59,9 @@ public class DetailServiceImpl implements IDetailService {
         User user = userDao.getUserByName(username);
         //查询收藏数据
         Favorite favorite = new FavoriteDaoImpl().getFavorite(rid, user.getUid(),1);
-        if (favorite == null)
+        if (favorite == null) {
             return 0;
+        }
         return 1;
     }
 }
