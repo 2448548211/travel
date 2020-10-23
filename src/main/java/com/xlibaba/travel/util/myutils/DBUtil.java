@@ -93,6 +93,14 @@ public class DBUtil {
             }
         }
     }
+    /**
+     * 以更新方法执行SQL语句
+     * @param sql       指定的sql语句
+	 * @param params    对应的参数
+     * @return  int     指定的行数
+     * @author ChenWang
+     * @date 2020/10/23 16:17
+     */
     public int executeUpdate(String sql, Object... params){
         int count = 0;
         Connection conn = getConnection();
@@ -119,6 +127,13 @@ public class DBUtil {
         }
         return count;
     }
+    /**
+     * 将参数传入对应的sql指定参量中
+     * @param ps        指定的预编译sql
+	 * @param params    对应的参数数组
+     * @author ChenWang
+     * @date 2020/10/23 16:18
+     */
     private void setParams(PreparedStatement ps, Object... params) throws SQLException {
         if (params != null && params.length > 0) {
             for (int i = 0; i < params.length; i++) {
@@ -126,6 +141,15 @@ public class DBUtil {
             }
         }
     }
+    /**
+     *  以查询方法执行sql语句
+     * @param sql       指定的sql
+	 * @param clazz     指定的返回值集合类型
+	 * @param params    指定的可变参数
+     * @return List<T>  指定的结果集
+     * @author ChenWang
+     * @date 2020/10/23 16:20
+     */
     public <T> List<T> excuteQuery(String sql,Class<T> clazz, Object...params){
         Connection conn = null;
         PreparedStatement ps = null;
@@ -155,6 +179,13 @@ public class DBUtil {
         }
         return list;
     }
+    /**
+     * 获取成员变量注解
+     * @param field     指定的成员
+     * @return          返回成员变量对应的列属性
+     * @author ChenWang
+     * @date 2020/10/23 16:16
+     */
     private String getColName(Field field){
         FieldColName annotation = field.getDeclaredAnnotation(FieldColName.class);
         return (annotation==null||EMPTY_STRING.equals(annotation.value()))?field.getName(): annotation.value();

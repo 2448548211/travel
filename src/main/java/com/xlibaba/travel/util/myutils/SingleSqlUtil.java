@@ -47,6 +47,13 @@ public class SingleSqlUtil{
         }
         return t;
     }
+    /**
+     * 将参数传入对应的sql指定参量中
+     * @param ps        指定的预编译sql
+     * @param params    对应的参数数组
+     * @author ChenWang
+     * @date 2020/10/23 16:18
+     */
     private static void setParams(PreparedStatement ps, Object... params) throws SQLException {
         if (params != null && params.length > 0) {
             for (int i = 0; i < params.length; i++) {
