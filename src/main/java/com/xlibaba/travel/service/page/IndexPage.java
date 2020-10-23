@@ -11,10 +11,15 @@ import java.util.List;
  * @since JDK 1.8
  */
 public class IndexPage {
+    /*精选页*/
     private IndexTopPage top;
+    /*国内路线*/
     private List<Route> mid;
+    /*国外路线*/
     private List<Route> foot;
+    /*国内块图片*/
     private String midImg;
+    /*国外块图片*/
     private String footImg;
     public IndexPage() {
     }

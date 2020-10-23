@@ -10,7 +10,13 @@ import java.util.List;
 
 public class RouteServiceImpl implements IRouteService {
     private IRouteDao iRouteDao = new RouteDaoImpl();
-
+    /**
+     * 通过名字查询路线
+     * @param routeName     路线名
+	 * @param currentPage   当前页面
+     * @return  Page        页面数据
+     * @date 2020/10/23 14:44
+     */
     @Override
     public Page selectRoutesByName(String routeName, int currentPage) {
         Page page = new Page();
@@ -21,7 +27,12 @@ public class RouteServiceImpl implements IRouteService {
         page.setList(routes);
         return page;
     }
-
+    /**
+     * 通过ID获取路线
+     * @param id        指定的ID
+     * @return  Route   路线
+     * @date 2020/10/23 14:45
+     */
     @Override
     public Route selectRouteById(int id) {
         return iRouteDao.selectRouteById(id);

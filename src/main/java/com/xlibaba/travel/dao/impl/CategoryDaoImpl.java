@@ -14,6 +14,12 @@ import java.util.List;
  * @since JDK 1.8
  */
 public class CategoryDaoImpl implements ICategoryDao {
+    /**
+     * 获取标头导航
+     * @return List<String> 标头导航
+     * @author ChenWang
+     * @date 2020/10/23 15:11
+     */
     @Override
     public List<String> selectAll() {
         List<String> list = new ArrayList<>();

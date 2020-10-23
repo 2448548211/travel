@@ -10,6 +10,18 @@ import com.xlibaba.travel.service.page.IndexTopPage;
  * @since JDK 1.8
  */
 public interface IIndexService {
+    /**
+     * 获取首页数据
+     * @return  IndexPage   首页数据
+     * @author ChenWang
+     * @date 2020/10/23 14:38
+     */
     IndexPage getIndexPage();
+    /**
+     * 获取首页精选导航数据
+     * @return   IndexTopPage   首页精选导航数据
+     * @author ChenWang
+     * @date 2020/10/23 14:38
+     */
     IndexTopPage getIndexTopPage();
 }

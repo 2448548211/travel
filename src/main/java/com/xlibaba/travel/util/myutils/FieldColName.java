@@ -6,6 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * 成员变量注解类
  * @author ChenWang
  * @annotationName FieldColName
  * @date 2020/10/15 20:22

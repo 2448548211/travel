@@ -9,7 +9,9 @@ import java.util.List;
  * @since JDK 1.8
  */
 public class HeaderPage {
+    /*用户名*/
     private String username;
+    /*导航栏*/
     private List<String> navBar;
 
     public void setUsername(String username) {

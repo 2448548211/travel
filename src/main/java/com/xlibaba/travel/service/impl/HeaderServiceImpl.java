@@ -13,6 +13,13 @@ import com.xlibaba.travel.service.page.HeaderPage;
  */
 public class HeaderServiceImpl implements IHeaderService {
     private ICategoryDao categoryDao = new CategoryDaoImpl();
+    /**
+     * 获取标头页面数据
+     * @param username  用户数据
+     * @return  HeaderPage  标头页面数据
+     * @author ChenWang
+     * @date 2020/10/23 14:52
+     */
     @Override
     public HeaderPage getHeaderPage(String username) {
         HeaderPage headerPage = new HeaderPage();

@@ -30,7 +30,9 @@ public class MyFavoriteServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String username = RequestUserDataUtil.getUsernameFromAuthority(req);
         //String username = "zs";
+        /*获取当前页码值（String）*/
         String cp = req.getParameter(CURRENT_PAGE);
+        /*判定+强转所获页码数据，如果页码数据不存在就赋值为1*/
         Integer currentPage = cp==null||"".equals(cp)?ONE:Integer.parseInt(req.getParameter(CURRENT_PAGE));
         MyFavoritePage myFavoritePage = myFavoriteService.getMyFavoritePage(username,currentPage);
         BaseResponseEntity<MyFavoritePage> pakage = null;

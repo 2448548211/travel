@@ -17,22 +17,29 @@ public class LoginServiceImpl implements ILoginService {
 
     //创建dao对象
     IUserDao dao = new UserDaoImpl();
-
+    /**
+     * 获取所有的用户数据
+     * @return  List<User>  所有的用户数据集合
+     * @date 2020/10/23 14:49
+     */
     @Override
     public List<User> listUserAll() {
         return dao.listUserAll();
     }
-
+    /**
+     * 依据名字获取用户
+     * @param name  指定用户名
+     * @return User 用户
+     * @date 2020/10/23 14:50
+     */
     @Override
     public User getUserByName(String name) {
         return dao.getUserByName(name);
     }
-
     @Override
     public int insertUser(User user) {
         return 0;
     }
-
     @Override
     public int updateUser(User user) {
         return 0;

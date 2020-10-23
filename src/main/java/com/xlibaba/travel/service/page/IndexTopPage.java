@@ -11,9 +11,13 @@ import java.util.List;
  * @since JDK 1.8
  */
 public class IndexTopPage {
+    /*精选最贵的路线集合*/
     private List<Route> topExpensive;
+    /*精选最热门的路线集合*/
     private List<Route> topHot;
+    /*精选最新的路线集合*/
     private List<Route> topNew;
+    /*精选主题路线集合*/
     private List<Route> topTheme;
 
     public List<Route> getTopExpensive() {

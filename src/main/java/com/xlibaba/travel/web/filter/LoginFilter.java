@@ -27,9 +27,12 @@ public class LoginFilter extends DefaultFilter {
      */
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
+        /*转换请求和响应类型*/
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse resp = (HttpServletResponse) response;
+        /*从cookie和session中获取username*/
         String username = RequestUserDataUtil.getUsernameFromAuthority(req);
+        /*获取请求的路径*/
         String requestURI = req.getRequestURI();
         boolean flag = /*requestURI.endsWith("index.html") ||requestURI.endsWith("index")||
                 requestURI.endsWith("login.html") ||requestURI.endsWith("login")||
@@ -38,9 +41,12 @@ public class LoginFilter extends DefaultFilter {
                 (requestURI.endsWith("myfavorite.html")&&username!=null) ||(requestURI.endsWith("myFavorite")&&username!=null)
                         ||  (requestURI.endsWith("favorite")&&username!=null)
                         || !requestURI.endsWith("myfavorite.html");
+        /*判定路径是否合理*/
         if (flag) {
+            /*合理放行*/
             filterChain.doFilter(request, response);
         } else {
+            /*跳回首页*/
             resp.sendRedirect("index.html");
         }
     }

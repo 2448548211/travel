@@ -26,6 +26,13 @@ public class FavoriteServiceImpl implements IFavoriteService {
     IFavoriteDao dao = new FavoriteDaoImpl();
 
     //添加收藏
+    /**
+     * 收藏页面数据
+     * @param rid           指定的路线ID
+	 * @param username      指定的用户名
+     * @return  int         影响的行数
+     * @date 2020/10/23 14:54
+     */
     @Override
     public int saveFavorite(String rid, String username) {
         int line = 0;
@@ -60,6 +67,13 @@ public class FavoriteServiceImpl implements IFavoriteService {
     }
 
     //删除收藏
+    /**
+     * 删除收藏
+     * @param rid       指定的路线ID
+	 * @param username  指定的用户名
+     * @return  int     影响的行数
+     * @date 2020/10/23 14:55
+     */
     @Override
     public int deleteFavorite(String rid, String username) {
         //查询用户数据

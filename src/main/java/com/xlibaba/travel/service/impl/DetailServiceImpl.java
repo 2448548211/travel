@@ -27,6 +27,13 @@ public class DetailServiceImpl implements IDetailService {
     private IRouteImgDao imgDao = new RouteImgDaoImpl();
     private IRouteDao routeDao = new RouteDaoImpl();
 
+    /**
+     * 通过ID获取路线详情    用户名用于获取收藏状态
+     * @param id            指定的路线ID
+	 * @param username      指定的用户名
+     * @return Detail       详情数据
+     * @date 2020/10/23 14:56
+     */
     @Override
     public Detail getDetailImgById(int id, String username) {
         Detail detail = new Detail();
@@ -52,6 +59,14 @@ public class DetailServiceImpl implements IDetailService {
     }
 
     //查询收藏状态,返回0为未收藏、1相反
+    /**
+     * 获取收藏状态
+     * @param rid       指定的ID
+	 * @param username  指定的用户名
+     * @return  int     返回0表示没有收藏，返回1表示已经收藏
+     * @author ChenWang
+     * @date 2020/10/23 14:58
+     */
     @Override
     public int getFavoriteStateByID(int rid, String username) {
         //查询用户数据
