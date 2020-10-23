@@ -27,7 +27,7 @@
                 )
                 let user = result.data.username;
                 //let use = 'zs';
-                if(user===null||user==="undefined"||user===""){
+                if(user===null||user==="undefined"||user===""||user==undefined){
                     $("#login_header").css("display","none")
                     $("#login_out_header").css("display","block")
                 }else{

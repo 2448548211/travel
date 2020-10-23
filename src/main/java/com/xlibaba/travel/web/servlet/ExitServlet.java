@@ -27,9 +27,10 @@ public class ExitServlet extends HttpServlet {
         //第一种时长
         //session.setMaxInactiveInterval(0);
         //第二种让session失效的方法
-        session.invalidate();
+        //session.invalidate();
         //第三种
-        //session.removeAttribute("username");
-        resp.sendRedirect(req.getContextPath()+"/index.html");
+        session.removeAttribute("username");
+        /*resp.sendRedirect(req.getContextPath()+"/index.html");*/
+        req.getRequestDispatcher("login.html").forward(req,resp);
     }
 }
