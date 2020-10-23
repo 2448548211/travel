@@ -2,18 +2,12 @@ const BASE_URL = "http://localhost:8080/api/topAll";
 
 const BASE_CONDITION_URL = "http://localhost:8080/api/topCondition";
 
+
 $(function () {
-    let index = 1;
-
-    $("#next li").each(function () {
-        $("#next li")[index].click(function () {
-
-        })
-    })
-
     let params = {
-        page: index
+        page: 1
     }
+
     $.get(BASE_URL,params,function (result) {
         if (result.code === 200){
             //数据展示 -- 前端未分页
@@ -31,9 +25,9 @@ $(function () {
     //     </p>
     // </li>
     //数据展示函数
-    function showTopFavorite(topCollectAll) {
+    function showTopFavorite(topAll) {
         let index = 1;
-        for (const topSingle of topCollectAll) {
+        for (const topSingle of topAll) {
             $("#topFavorite").append(
                 $("<li>").append(
                     $("<span>").addClass("num one").text(index++)
@@ -66,13 +60,15 @@ $(function () {
             title: $("#title").val(),
             minPrice: $("#min").val(),
             maxPrice: $("#max").val(),
-            //通过 page ++ / -- 获取数据的偏移量
+            //通过 page ++/-- 获取数据的偏移量
             page: 1
         }
         $.get(BASE_CONDITION_URL,params,function (result) {
             console.log(result.code)
             if (result.code === 200){
-                location.href = "";
+                //先清除原页面的数据 -- 设内容为空
+                $("#topFavorite").html("");
+                //再把获取的数据显示到页面
                 showTopFavorite(result.data.list);
             }
         })
