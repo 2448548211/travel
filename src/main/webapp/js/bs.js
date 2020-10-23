@@ -1,1 +1,1 @@
-const BASE_URL = "http://localhost:8080/travel_war";
+const BASE_URL = "http://localhost:8080/travel";

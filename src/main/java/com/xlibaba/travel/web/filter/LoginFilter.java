@@ -31,10 +31,12 @@ public class LoginFilter extends DefaultFilter {
         HttpServletResponse resp = (HttpServletResponse) response;
         String username = RequestUserDataUtil.getUsernameFromAuthority(req);
         String requestURI = req.getRequestURI();
-        boolean flag = requestURI.endsWith("index") ||
-                requestURI.endsWith("login") ||
-                requestURI.endsWith("register") ||
-                username != null;
+        boolean flag = /*requestURI.endsWith("index.html") ||requestURI.endsWith("index")||
+                requestURI.endsWith("login.html") ||requestURI.endsWith("login")||
+                requestURI.endsWith("register.html") ||requestURI.endsWith("register")||
+                username != null;*/
+                (requestURI.endsWith("myfavorite.html")&&username!=null) ||(requestURI.endsWith("myFavorite")&&username!=null)
+                || !requestURI.endsWith("myfavorite.html");
         if (flag) {
             filterChain.doFilter(request, response);
         } else {

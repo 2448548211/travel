@@ -1,6 +1,5 @@
-const BASE_URL = "http://localhost:8080/api/topAll";
-
-const BASE_CONDITION_URL = "http://localhost:8080/api/topCondition";
+const TOP_ALL = BASE_URL+"/topAll";
+const BASE_CONDITION_URL = BASE_URL+"/topCondition";
 
 
 $(function () {
@@ -8,7 +7,7 @@ $(function () {
         page: 1
     }
 
-    $.get(BASE_URL,params,function (result) {
+    $.get(TOP_ALL,params,function (result) {
         if (result.code === 200){
             //数据展示 -- 前端未分页
             showTopFavorite(result.data.list);
