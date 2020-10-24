@@ -1,12 +1,16 @@
-const TOP_ALL = BASE_URL+"/topAll";
-const BASE_CONDITION_URL = BASE_URL+"/topCondition";
 
+const TOP_ALL = BASE_URL + "/topAll";
 
 $(function () {
+
+    //获取输入框的内容
     let params = {
+        title: "",
+        minPrice: "",
+        maxPrice: "",
+        //通过 page ++/-- 获取数据的偏移量
         page: 1
     }
-
     $.get(TOP_ALL,params,function (result) {
         if (result.code === 200){
             //数据展示 -- 前端未分页
@@ -62,7 +66,7 @@ $(function () {
             //通过 page ++/-- 获取数据的偏移量
             page: 1
         }
-        $.get(BASE_CONDITION_URL,params,function (result) {
+        $.get(TOP_ALL,params,function (result) {
             console.log(result.code)
             if (result.code === 200){
                 //先清除原页面的数据 -- 设内容为空

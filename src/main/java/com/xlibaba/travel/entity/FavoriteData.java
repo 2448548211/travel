@@ -19,7 +19,6 @@ public class FavoriteData {
     private int pageCount;
     //数据集合
     private List<?> list;
-    //请求地址
 
     public FavoriteData() {
     }

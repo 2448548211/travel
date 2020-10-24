@@ -19,14 +19,14 @@ public class DbManager {
      * @param sql 语句
      * @return 数据集合
      */
-    public static List<Route> selectSql(String sql){
+    public static List<Route> selectSql(StringBuffer sql){
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rSet = null;
         ArrayList<Route> list = new ArrayList<>();
         try {
             conn = DBUtils.getConnection();
-            ps = conn.prepareStatement(sql);
+            ps = conn.prepareStatement(new String(sql));
             rSet = ps.executeQuery();
             while (rSet.next()){
                 int rid = rSet.getInt(1);
@@ -51,14 +51,14 @@ public class DbManager {
      * @param sql 语句
      * @return 总行数
      */
-    public static int getTotalCount(String sql) {
+    public static int getTotalCount(StringBuffer sql) {
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rSet = null;
         int count = 0;
         try {
             conn = DBUtils.getConnection();
-            ps = conn.prepareStatement(sql);
+            ps = conn.prepareStatement(sql.toString());
             rSet = ps.executeQuery();
             if (rSet.next()){
                 count = rSet.getInt(1);

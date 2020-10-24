@@ -22,12 +22,16 @@ public class TopFavoriteController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        req.setCharacterEncoding("utf-8");
+        //获取前端条件数据
+        String title = req.getParameter("title");
+        String minPrice = req.getParameter("minPrice");
+        String maxPrice = req.getParameter("maxPrice");
         //获取当前页
         String currentPage = req.getParameter("page");
-
         BaseResponseEntity<FavoriteData> responseEntity = null;
         try {
-            FavoriteData data = service.getTopList(currentPage);
+            FavoriteData data = service.getTopList(title,minPrice,maxPrice,currentPage);
             //存放数据
             responseEntity = BaseResponseEntity.success(data);
         } catch (Exception e){
